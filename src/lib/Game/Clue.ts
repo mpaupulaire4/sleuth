@@ -31,7 +31,9 @@ interface AdjacentClue extends BaseClue {
   tiles: [[number, number], [number, number]];
 }
 
-function applyAdjacent(clue: AdjacentClue, board: iBoard) { }
+function applyAdjacent(clue: AdjacentClue, board: iBoard) {
+  throw "not implemented"
+}
 
 interface SameClue extends BaseClue {
   type: ClueType.Same;
@@ -68,14 +70,18 @@ interface BeforeClue extends BaseClue {
   tiles: [[number, number], [number, number]];
 }
 
-function applyBefore(clue: BeforeClue, board: iBoard) { }
+function applyBefore(clue: BeforeClue, board: iBoard) {
+  throw "not implemented"
+}
 
 interface SequentialClue extends BaseClue {
   type: ClueType.Sequential;
   tiles: [[number, number], [number, number], [number, number]];
 }
 
-function applySequential(clue: SequentialClue, board: iBoard) { }
+function applySequential(clue: SequentialClue, board: iBoard) {
+  throw "not implemented"
+}
 
 export type Clue =
   | ExactClue
