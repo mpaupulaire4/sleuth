@@ -4,9 +4,8 @@
  */
 export function shuffle<A extends unknown[]>(a: A): A {
   let x, i;
-  for (i = a.length; i > 0;) {
+  for (i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * i);
-    i--;
     x = a[i];
     a[i] = a[j];
     a[j] = x;

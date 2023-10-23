@@ -35,27 +35,27 @@ export type iSolvedBoard = Array<Array<number>>;
 // }
 
 // Generate a random, solved board.
-export function generate_solved_board(): iSolvedBoard {
+export function generate_solved_board(board_size = BOARD_SIZE): iSolvedBoard {
   const board: iSolvedBoard = [];
-  const tiles = Array(BOARD_SIZE)
+  const tiles = Array(board_size)
     .fill(0)
     .map((_, i) => i);
 
-  for (let i = 0; i < BOARD_SIZE; i++) {
+  for (let i = 0; i < board_size; i++) {
     board.push(shuffle(tiles.slice()));
   }
   return board;
 }
 
-export function generate_board(): iBoard {
+export function generate_board(board_size = BOARD_SIZE): iBoard {
   const board: iBoard = [];
-  const tiles = Array(BOARD_SIZE)
+  const tiles = Array(board_size)
     .fill(0)
     .map((_, i) => i);
 
-  for (let i = 0; i < BOARD_SIZE; i++) {
+  for (let i = 0; i < board_size; i++) {
     board[i] = [];
-    for (let j = 0; j < BOARD_SIZE; j++) {
+    for (let j = 0; j < board_size; j++) {
       board[i].push(new Set(tiles));
     }
   }
