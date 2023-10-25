@@ -1,5 +1,6 @@
-import { remove_from_board, type iBoard, type iSolvedBoard } from "./Board";
-import { shuffle, cell_is } from "../utils";
+import { type iBoard, type iSolvedBoard } from "./Board";
+import { remove_from_board } from "./Cell";
+import { shuffle, cell_is, swap } from "../utils";
 
 export const enum ClueType {
   Exact,
@@ -31,8 +32,8 @@ interface AdjacentClue extends BaseClue {
   tiles: [[number, number], [number, number]];
 }
 
-function applyAdjacent(clue: AdjacentClue, board: iBoard) {
-  throw "not implemented"
+function applyAdjacent(clue: AdjacentClue, board: iBoard): boolean {
+  throw "not implemented";
 }
 
 interface SameClue extends BaseClue {
@@ -40,7 +41,7 @@ interface SameClue extends BaseClue {
   tiles: [[number, number], [number, number]];
 }
 
-function applySame(clue: SameClue, board: iBoard) {
+function applySame(clue: SameClue, board: iBoard): boolean {
   let changed = false;
   const [[row1, id1], [row2, id2]] = clue.tiles;
   for (let i = 0; i < board.length; i++) {
@@ -63,6 +64,7 @@ function applySame(clue: SameClue, board: iBoard) {
       changed = remove_from_board(board, row1, i, id1);
     }
   }
+  return changed
 }
 
 interface BeforeClue extends BaseClue {
@@ -70,8 +72,8 @@ interface BeforeClue extends BaseClue {
   tiles: [[number, number], [number, number]];
 }
 
-function applyBefore(clue: BeforeClue, board: iBoard) {
-  throw "not implemented"
+function applyBefore(clue: BeforeClue, board: iBoard): boolean {
+  throw "not implemented";
 }
 
 interface SequentialClue extends BaseClue {
@@ -79,8 +81,8 @@ interface SequentialClue extends BaseClue {
   tiles: [[number, number], [number, number], [number, number]];
 }
 
-function applySequential(clue: SequentialClue, board: iBoard) {
-  throw "not implemented"
+function applySequential(clue: SequentialClue, board: iBoard): boolean {
+  throw "not implemented";
 }
 
 export type Clue =
@@ -124,14 +126,16 @@ export function generate_clues(board: iSolvedBoard): Clue[] {
           });
           if (c > 0) {
             // Sequential clues.
-            clues.push({
-              type: ClueType.Sequential,
-              tiles: swap([
-                [r2, board[r2][c - 1]],
-                [r, id],
-                [r2, board[r2][c + 1]],
-              ]),
-            });
+            for (let r3 = 0; r3 < board.length; r3++) {
+              clues.push({
+                type: ClueType.Sequential,
+                tiles: swap([
+                  [r2, board[r2][c - 1]],
+                  [r, id],
+                  [r3, board[r3][c + 1]],
+                ]),
+              });
+            }
           }
         }
       }
@@ -150,15 +154,6 @@ export function generate_clues(board: iSolvedBoard): Clue[] {
     }
   }
   return shuffle(clues);
-}
-
-function swap<A extends [unknown, unknown, ...unknown[]]>(a: A): A {
-  if (Math.random() < 0.5) {
-    const x = a[a.length - 1];
-    a[a.length - 1] = a[0];
-    a[0] = x;
-  }
-  return a;
 }
 
 export function apply(clue: Clue, board: iBoard): boolean {
