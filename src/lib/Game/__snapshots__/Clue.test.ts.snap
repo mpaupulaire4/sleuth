@@ -5,19 +5,6 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
   {
     "tiles": [
       [
-        2,
-        0,
-      ],
-      [
-        0,
-        1,
-      ],
-    ],
-    "type": 2,
-  },
-  {
-    "tiles": [
-      [
         0,
         0,
       ],
@@ -57,89 +44,11 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
   {
     "tiles": [
       [
-        1,
-        1,
-      ],
-      [
-        0,
-        2,
-      ],
-    ],
-    "type": 2,
-  },
-  {
-    "tiles": [
-      [
-        1,
-        1,
-      ],
-      [
-        1,
-        2,
-      ],
-    ],
-    "type": 2,
-  },
-  {
-    "tiles": [
-      [
-        1,
-        1,
-      ],
-      [
-        2,
-        2,
-      ],
-    ],
-    "type": 2,
-  },
-  {
-    "tiles": [
-      [
         0,
         1,
       ],
       [
         0,
-        2,
-      ],
-    ],
-    "type": 2,
-  },
-  {
-    "tiles": [
-      [
-        2,
-        0,
-      ],
-      [
-        2,
-        1,
-      ],
-    ],
-    "type": 2,
-  },
-  {
-    "tiles": [
-      [
-        2,
-        1,
-      ],
-      [
-        0,
-        2,
-      ],
-    ],
-    "type": 2,
-  },
-  {
-    "tiles": [
-      [
-        2,
-        1,
-      ],
-      [
-        1,
         2,
       ],
     ],
@@ -161,38 +70,12 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
   {
     "tiles": [
       [
-        2,
-        1,
-      ],
-      [
-        2,
-        2,
-      ],
-    ],
-    "type": 2,
-  },
-  {
-    "tiles": [
-      [
         0,
         1,
       ],
       [
         2,
         2,
-      ],
-    ],
-    "type": 2,
-  },
-  {
-    "tiles": [
-      [
-        2,
-        0,
-      ],
-      [
-        1,
-        1,
       ],
     ],
     "type": 2,
@@ -232,6 +115,123 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
       [
         2,
         1,
+      ],
+    ],
+    "type": 2,
+  },
+  {
+    "tiles": [
+      [
+        1,
+        1,
+      ],
+      [
+        0,
+        2,
+      ],
+    ],
+    "type": 2,
+  },
+  {
+    "tiles": [
+      [
+        1,
+        1,
+      ],
+      [
+        1,
+        2,
+      ],
+    ],
+    "type": 2,
+  },
+  {
+    "tiles": [
+      [
+        1,
+        1,
+      ],
+      [
+        2,
+        2,
+      ],
+    ],
+    "type": 2,
+  },
+  {
+    "tiles": [
+      [
+        2,
+        0,
+      ],
+      [
+        0,
+        1,
+      ],
+    ],
+    "type": 2,
+  },
+  {
+    "tiles": [
+      [
+        2,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": 2,
+  },
+  {
+    "tiles": [
+      [
+        2,
+        0,
+      ],
+      [
+        2,
+        1,
+      ],
+    ],
+    "type": 2,
+  },
+  {
+    "tiles": [
+      [
+        2,
+        1,
+      ],
+      [
+        0,
+        2,
+      ],
+    ],
+    "type": 2,
+  },
+  {
+    "tiles": [
+      [
+        2,
+        1,
+      ],
+      [
+        1,
+        2,
+      ],
+    ],
+    "type": 2,
+  },
+  {
+    "tiles": [
+      [
+        2,
+        1,
+      ],
+      [
+        2,
+        2,
       ],
     ],
     "type": 2,
@@ -244,32 +244,6 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
   {
     "tiles": [
       [
-        2,
-        0,
-      ],
-      [
-        2,
-        2,
-      ],
-    ],
-    "type": 3,
-  },
-  {
-    "tiles": [
-      [
-        2,
-        1,
-      ],
-      [
-        2,
-        2,
-      ],
-    ],
-    "type": 3,
-  },
-  {
-    "tiles": [
-      [
         0,
         0,
       ],
@@ -283,33 +257,7 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
   {
     "tiles": [
       [
-        1,
-        1,
-      ],
-      [
-        2,
-        2,
-      ],
-    ],
-    "type": 3,
-  },
-  {
-    "tiles": [
-      [
         0,
-        0,
-      ],
-      [
-        0,
-        2,
-      ],
-    ],
-    "type": 3,
-  },
-  {
-    "tiles": [
-      [
-        2,
         0,
       ],
       [
@@ -374,45 +322,6 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
   {
     "tiles": [
       [
-        1,
-        1,
-      ],
-      [
-        0,
-        2,
-      ],
-    ],
-    "type": 3,
-  },
-  {
-    "tiles": [
-      [
-        2,
-        0,
-      ],
-      [
-        1,
-        2,
-      ],
-    ],
-    "type": 3,
-  },
-  {
-    "tiles": [
-      [
-        2,
-        1,
-      ],
-      [
-        0,
-        2,
-      ],
-    ],
-    "type": 3,
-  },
-  {
-    "tiles": [
-      [
         0,
         1,
       ],
@@ -439,64 +348,12 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
   {
     "tiles": [
       [
-        1,
-        1,
-      ],
-      [
-        1,
-        2,
-      ],
-    ],
-    "type": 3,
-  },
-  {
-    "tiles": [
-      [
         0,
         1,
       ],
       [
         2,
         2,
-      ],
-    ],
-    "type": 3,
-  },
-  {
-    "tiles": [
-      [
-        2,
-        0,
-      ],
-      [
-        0,
-        1,
-      ],
-    ],
-    "type": 3,
-  },
-  {
-    "tiles": [
-      [
-        2,
-        0,
-      ],
-      [
-        1,
-        1,
-      ],
-    ],
-    "type": 3,
-  },
-  {
-    "tiles": [
-      [
-        2,
-        0,
-      ],
-      [
-        2,
-        1,
       ],
     ],
     "type": 3,
@@ -569,7 +426,33 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
   {
     "tiles": [
       [
+        1,
+        0,
+      ],
+      [
         2,
+        2,
+      ],
+    ],
+    "type": 3,
+  },
+  {
+    "tiles": [
+      [
+        1,
+        1,
+      ],
+      [
+        0,
+        2,
+      ],
+    ],
+    "type": 3,
+  },
+  {
+    "tiles": [
+      [
+        1,
         1,
       ],
       [
@@ -583,7 +466,124 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
     "tiles": [
       [
         1,
+        1,
+      ],
+      [
+        2,
+        2,
+      ],
+    ],
+    "type": 3,
+  },
+  {
+    "tiles": [
+      [
+        2,
         0,
+      ],
+      [
+        0,
+        1,
+      ],
+    ],
+    "type": 3,
+  },
+  {
+    "tiles": [
+      [
+        2,
+        0,
+      ],
+      [
+        0,
+        2,
+      ],
+    ],
+    "type": 3,
+  },
+  {
+    "tiles": [
+      [
+        2,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": 3,
+  },
+  {
+    "tiles": [
+      [
+        2,
+        0,
+      ],
+      [
+        1,
+        2,
+      ],
+    ],
+    "type": 3,
+  },
+  {
+    "tiles": [
+      [
+        2,
+        0,
+      ],
+      [
+        2,
+        1,
+      ],
+    ],
+    "type": 3,
+  },
+  {
+    "tiles": [
+      [
+        2,
+        0,
+      ],
+      [
+        2,
+        2,
+      ],
+    ],
+    "type": 3,
+  },
+  {
+    "tiles": [
+      [
+        2,
+        1,
+      ],
+      [
+        0,
+        2,
+      ],
+    ],
+    "type": 3,
+  },
+  {
+    "tiles": [
+      [
+        2,
+        1,
+      ],
+      [
+        1,
+        2,
+      ],
+    ],
+    "type": 3,
+  },
+  {
+    "tiles": [
+      [
+        2,
+        1,
       ],
       [
         2,
@@ -621,8 +621,28 @@ exports[`generate_clues > generates all clues > exact clues 1`] = `
     "col": 2,
     "tiles": [
       [
-        1,
+        0,
         2,
+      ],
+    ],
+    "type": 0,
+  },
+  {
+    "col": 0,
+    "tiles": [
+      [
+        1,
+        0,
+      ],
+    ],
+    "type": 0,
+  },
+  {
+    "col": 1,
+    "tiles": [
+      [
+        1,
+        1,
       ],
     ],
     "type": 0,
@@ -631,27 +651,17 @@ exports[`generate_clues > generates all clues > exact clues 1`] = `
     "col": 2,
     "tiles": [
       [
-        0,
-        2,
-      ],
-    ],
-    "type": 0,
-  },
-  {
-    "col": 0,
-    "tiles": [
-      [
-        2,
-        0,
-      ],
-    ],
-    "type": 0,
-  },
-  {
-    "col": 0,
-    "tiles": [
-      [
         1,
+        2,
+      ],
+    ],
+    "type": 0,
+  },
+  {
+    "col": 0,
+    "tiles": [
+      [
+        2,
         0,
       ],
     ],
@@ -673,16 +683,6 @@ exports[`generate_clues > generates all clues > exact clues 1`] = `
       [
         2,
         2,
-      ],
-    ],
-    "type": 0,
-  },
-  {
-    "col": 1,
-    "tiles": [
-      [
-        1,
-        1,
       ],
     ],
     "type": 0,
@@ -747,32 +747,6 @@ exports[`generate_clues > generates all clues > same clues 1`] = `
   {
     "tiles": [
       [
-        1,
-        2,
-      ],
-      [
-        2,
-        2,
-      ],
-    ],
-    "type": 1,
-  },
-  {
-    "tiles": [
-      [
-        1,
-        1,
-      ],
-      [
-        2,
-        1,
-      ],
-    ],
-    "type": 1,
-  },
-  {
-    "tiles": [
-      [
         0,
         2,
       ],
@@ -805,6 +779,32 @@ exports[`generate_clues > generates all clues > same clues 1`] = `
       [
         2,
         0,
+      ],
+    ],
+    "type": 1,
+  },
+  {
+    "tiles": [
+      [
+        1,
+        1,
+      ],
+      [
+        2,
+        1,
+      ],
+    ],
+    "type": 1,
+  },
+  {
+    "tiles": [
+      [
+        1,
+        2,
+      ],
+      [
+        2,
+        2,
       ],
     ],
     "type": 1,
@@ -821,108 +821,6 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
         0,
       ],
       [
-        1,
-        1,
-      ],
-      [
-        1,
-        2,
-      ],
-    ],
-    "type": 4,
-  },
-  {
-    "tiles": [
-      [
-        1,
-        0,
-      ],
-      [
-        2,
-        1,
-      ],
-      [
-        1,
-        2,
-      ],
-    ],
-    "type": 4,
-  },
-  {
-    "tiles": [
-      [
-        2,
-        0,
-      ],
-      [
-        1,
-        1,
-      ],
-      [
-        1,
-        2,
-      ],
-    ],
-    "type": 4,
-  },
-  {
-    "tiles": [
-      [
-        1,
-        0,
-      ],
-      [
-        1,
-        1,
-      ],
-      [
-        1,
-        2,
-      ],
-    ],
-    "type": 4,
-  },
-  {
-    "tiles": [
-      [
-        0,
-        0,
-      ],
-      [
-        2,
-        1,
-      ],
-      [
-        1,
-        2,
-      ],
-    ],
-    "type": 4,
-  },
-  {
-    "tiles": [
-      [
-        2,
-        0,
-      ],
-      [
-        2,
-        1,
-      ],
-      [
-        1,
-        2,
-      ],
-    ],
-    "type": 4,
-  },
-  {
-    "tiles": [
-      [
-        0,
-        0,
-      ],
-      [
         0,
         1,
       ],
@@ -1021,62 +919,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
   {
     "tiles": [
       [
-        0,
-        0,
-      ],
-      [
-        1,
-        1,
-      ],
-      [
-        0,
-        2,
-      ],
-    ],
-    "type": 4,
-  },
-  {
-    "tiles": [
-      [
-        0,
-        0,
-      ],
-      [
-        1,
-        1,
-      ],
-      [
-        2,
-        2,
-      ],
-    ],
-    "type": 4,
-  },
-  {
-    "tiles": [
-      [
         2,
         0,
       ],
       [
         0,
-        1,
-      ],
-      [
-        0,
-        2,
-      ],
-    ],
-    "type": 4,
-  },
-  {
-    "tiles": [
-      [
-        1,
-        0,
-      ],
-      [
-        1,
         1,
       ],
       [
@@ -1106,6 +953,108 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
   {
     "tiles": [
       [
+        2,
+        0,
+      ],
+      [
+        0,
+        1,
+      ],
+      [
+        2,
+        2,
+      ],
+    ],
+    "type": 4,
+  },
+  {
+    "tiles": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+      [
+        0,
+        2,
+      ],
+    ],
+    "type": 4,
+  },
+  {
+    "tiles": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+      [
+        1,
+        2,
+      ],
+    ],
+    "type": 4,
+  },
+  {
+    "tiles": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+      [
+        2,
+        2,
+      ],
+    ],
+    "type": 4,
+  },
+  {
+    "tiles": [
+      [
+        1,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+      [
+        0,
+        2,
+      ],
+    ],
+    "type": 4,
+  },
+  {
+    "tiles": [
+      [
+        1,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+      [
+        1,
+        2,
+      ],
+    ],
+    "type": 4,
+  },
+  {
+    "tiles": [
+      [
         1,
         0,
       ],
@@ -1127,23 +1076,6 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
         0,
       ],
       [
-        0,
-        1,
-      ],
-      [
-        2,
-        2,
-      ],
-    ],
-    "type": 4,
-  },
-  {
-    "tiles": [
-      [
-        2,
-        0,
-      ],
-      [
         1,
         1,
       ],
@@ -1165,6 +1097,23 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
         1,
       ],
       [
+        1,
+        2,
+      ],
+    ],
+    "type": 4,
+  },
+  {
+    "tiles": [
+      [
+        2,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+      [
         2,
         2,
       ],
@@ -1199,6 +1148,23 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
         1,
       ],
       [
+        1,
+        2,
+      ],
+    ],
+    "type": 4,
+  },
+  {
+    "tiles": [
+      [
+        0,
+        0,
+      ],
+      [
+        2,
+        1,
+      ],
+      [
         2,
         2,
       ],
@@ -1233,6 +1199,23 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
         1,
       ],
       [
+        1,
+        2,
+      ],
+    ],
+    "type": 4,
+  },
+  {
+    "tiles": [
+      [
+        1,
+        0,
+      ],
+      [
+        2,
+        1,
+      ],
+      [
         2,
         2,
       ],
@@ -1251,6 +1234,23 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
       [
         0,
+        2,
+      ],
+    ],
+    "type": 4,
+  },
+  {
+    "tiles": [
+      [
+        2,
+        0,
+      ],
+      [
+        2,
+        1,
+      ],
+      [
+        1,
         2,
       ],
     ],

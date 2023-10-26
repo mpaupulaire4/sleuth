@@ -44,27 +44,24 @@ interface SameClue extends BaseClue {
 function applySame(clue: SameClue, board: iBoard): boolean {
   let changed = false;
   const [[row1, id1], [row2, id2]] = clue.tiles;
-  for (let i = 0; i < board.length; i++) {
-    const cell1 = board[row1][i];
-    const cell2 = board[row2][i];
-    // may not be needed
-    // if (cell_is(cell1, id1) && cell_is(cell2, id2)) {
-    //   return false;
-    // }
+  for (let c = 0; c < board.length; c++) {
+    const cell1 = board[row1][c];
+    const cell2 = board[row2][c];
+
     if (cell_is(cell1, id1)) {
-      return remove_from_board(board, row2, i, id2, true);
+      return remove_from_board(board, row2, c, id2, true);
     }
     if (cell_is(cell2, id2)) {
-      return remove_from_board(board, row1, i, id1, true);
+      return remove_from_board(board, row1, c, id1, true);
     }
     if (!cell1.has(id1)) {
-      changed = remove_from_board(board, row2, i, id2);
+      changed = remove_from_board(board, row2, c, id2) || changed;
     }
     if (!cell2.has(id2)) {
-      changed = remove_from_board(board, row1, i, id1);
+      changed = remove_from_board(board, row1, c, id1) || changed;
     }
   }
-  return changed
+  return changed;
 }
 
 interface BeforeClue extends BaseClue {
@@ -73,7 +70,31 @@ interface BeforeClue extends BaseClue {
 }
 
 function applyBefore(clue: BeforeClue, board: iBoard): boolean {
-  throw "not implemented";
+  const [[row1, id1], [row2, id2]] = clue.tiles;
+  let changed = false;
+  let found_fist = false;
+  let found_second = false;
+  let c = 0;
+  for (; c < board.length; c++) {
+    const cell1 = board[row1][c];
+    if (!found_fist) {
+      changed = remove_from_board(board, row2, c, id2) || changed;
+    }
+    if (cell1.has(id1)) {
+      found_fist = true;
+      break;
+    }
+  }
+  for (let c2 = board.length - 1; c2 > c; c2--) {
+    const cell2 = board[row2][c2];
+    if (!found_second) {
+      changed = remove_from_board(board, row1, c2, id1) || changed;
+    }
+    if (cell2.has(id2)) {
+      break;
+    }
+  }
+  return changed;
 }
 
 interface SequentialClue extends BaseClue {
@@ -119,21 +140,21 @@ export function generate_clues(board: iSolvedBoard): Clue[] {
         for (let r2 = 0; r2 < board.length; r2++) {
           clues.push({
             type: ClueType.Adjacent,
-            tiles: swap([
+            tiles: [
               [r, id],
               [r2, board[r2][c + 1]],
-            ]),
+            ],
           });
           if (c > 0) {
             // Sequential clues.
             for (let r3 = 0; r3 < board.length; r3++) {
               clues.push({
                 type: ClueType.Sequential,
-                tiles: swap([
+                tiles: [
                   [r2, board[r2][c - 1]],
                   [r, id],
                   [r3, board[r3][c + 1]],
-                ]),
+                ],
               });
             }
           }
@@ -153,10 +174,19 @@ export function generate_clues(board: iSolvedBoard): Clue[] {
       }
     }
   }
-  return shuffle(clues);
+  return clues;
 }
 
-export function apply(clue: Clue, board: iBoard): boolean {
+export function randomise_clues(clues: Clue[]) {
+  for (let clue of clues) {
+    if (clue.type === ClueType.Adjacent || clue.type === ClueType.Sequential) {
+      swap(clue.tiles);
+    }
+  }
+  shuffle(clues);
+}
+
+export function apply_clue(clue: Clue, board: iBoard): boolean {
   switch (clue.type) {
     case ClueType.Exact: {
       return applyExact(clue, board);

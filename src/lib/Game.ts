@@ -11,14 +11,13 @@ class Board {
     const solved_board = generate_solved_board();
     const board = generate_board();
     const all_clues = generate_clues(solved_board);
-    const clues: Clue[] = []
-    let solved = false
+    const clues: Clue[] = [];
+    let solved = false;
 
     while (!solved) {
-
       // Getting the last clue is faster than getting the first one.
-      const clue = all_clues.pop()!
-      clues.push(clue)
+      const clue = all_clues.pop()!;
+      clues.push(clue);
 
       // solved = Solver.solve()
 
@@ -39,6 +38,7 @@ class Board {
     // Global.clues.shuffle()
     // for clue in Global.clues:
     //   clue.disabled = false
+    // TODO: Need to randomize clues before finishing
     return [];
   }
 }
