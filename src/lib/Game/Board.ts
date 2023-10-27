@@ -1,9 +1,9 @@
-import type { Subscriber, Unsubscriber, Readable } from "svelte/store";
+import { Cell } from "./Cell";
 import { shuffle } from "../utils";
 
 const BOARD_SIZE = 6;
 
-export type iBoard = Array<Array<Set<number>>>;
+export type iBoard = Array<Array<Cell<number>>>;
 export type iSolvedBoard = Array<Array<number>>;
 
 // Generate a random, solved board.
@@ -28,7 +28,7 @@ export function generate_board(board_size = BOARD_SIZE): iBoard {
   for (let i = 0; i < board_size; i++) {
     board[i] = [];
     for (let j = 0; j < board_size; j++) {
-      board[i].push(new Set(tiles));
+      board[i].push(new Cell(tiles));
     }
   }
   return board;

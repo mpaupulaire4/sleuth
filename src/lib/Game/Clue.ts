@@ -1,6 +1,6 @@
 import { type iBoard, type iSolvedBoard } from "./Board";
 import { remove_from_board } from "./Cell";
-import { shuffle, cell_is, swap } from "../utils";
+import { shuffle, swap } from "../utils";
 
 export const enum ClueType {
   Exact,
@@ -33,7 +33,31 @@ interface AdjacentClue extends BaseClue {
 }
 
 function applyAdjacent(clue: AdjacentClue, board: iBoard): boolean {
-  throw "not implemented";
+  let changed = false;
+  for (let c = 0; c < board.length; c++) {
+    for (let [one, two] of [
+      [0, 1],
+      [1, 0],
+    ]) {
+      const [row1, id1] = clue.tiles[one];
+      const [row2, id2] = clue.tiles[two];
+      const cell = board[row1][c];
+      const cellL = board[row2][c - 1] as Set<number> | undefined;
+      const cellR = board[row2][c + 1] as Set<number> | undefined;
+      if (cell.is(id1)) {
+        changed = remove_from_board(board, row2, c, id2) || changed;
+        if (!cellL?.has(id2)) {
+          return remove_from_board(board, row2, c + 1, id2, true) || changed;
+        }
+        if (!cellR?.has(id2)) {
+          return remove_from_board(board, row2, c - 1, id2, true) || changed;
+        }
+      } else if (!cellL?.has(id2) && !cellR?.has(id2)) {
+        changed = remove_from_board(board, row1, c, id1);
+      }
+    }
+  }
+  return changed;
 }
 
 interface SameClue extends BaseClue {
@@ -48,10 +72,10 @@ function applySame(clue: SameClue, board: iBoard): boolean {
     const cell1 = board[row1][c];
     const cell2 = board[row2][c];
 
-    if (cell_is(cell1, id1)) {
+    if (cell1.is(id1)) {
       return remove_from_board(board, row2, c, id2, true);
     }
-    if (cell_is(cell2, id2)) {
+    if (cell2.is(id2)) {
       return remove_from_board(board, row1, c, id1, true);
     }
     if (!cell1.has(id1)) {

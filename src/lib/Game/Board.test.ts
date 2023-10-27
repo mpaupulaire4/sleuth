@@ -1,5 +1,6 @@
 import { describe, test, expect } from "vitest";
 import { generate_board, generate_solved_board } from "./Board";
+import { Cell } from "./Cell";
 
 describe("generate_solved_board", () => {
   test("generates a board of the specified size", () => {
@@ -20,9 +21,9 @@ describe("generate_solved_board", () => {
 describe("generate_board", () => {
   test("generates the same board of the specified size", () => {
     expect(generate_board(3)).toEqual([
-      [new Set([0, 1, 2]), new Set([0, 1, 2]), new Set([0, 1, 2])],
-      [new Set([0, 1, 2]), new Set([0, 1, 2]), new Set([0, 1, 2])],
-      [new Set([0, 1, 2]), new Set([0, 1, 2]), new Set([0, 1, 2])],
+      [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+      [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+      [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
     ]);
   });
 });

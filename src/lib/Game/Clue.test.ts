@@ -1,5 +1,6 @@
 import { describe, test, expect, beforeEach } from "vitest";
 import { ClueType, apply_clue, generate_clues } from "./Clue";
+import { Cell } from "./Cell";
 import { generate_board, type iBoard, type iSolvedBoard } from "./Board";
 
 describe("generate_clues", () => {
@@ -42,7 +43,7 @@ describe("apply_clue", () => {
 
   describe("Exact", () => {
     test("does nothing if already set", () => {
-      board[0][0] = new Set([0]);
+      board[0][0] = new Cell([0]);
       expect(
         apply_clue(
           {
@@ -66,9 +67,9 @@ describe("apply_clue", () => {
         ),
       ).toBe(true);
       expect(board).toEqual([
-        [new Set([0]), new Set([1, 2]), new Set([1, 2])],
-        [new Set([0, 1, 2]), new Set([0, 1, 2]), new Set([0, 1, 2])],
-        [new Set([0, 1, 2]), new Set([0, 1, 2]), new Set([0, 1, 2])],
+        [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
       ]);
       expect(
         apply_clue(
@@ -81,9 +82,9 @@ describe("apply_clue", () => {
         ),
       ).toBe(true);
       expect(board).toEqual([
-        [new Set([0]), new Set([1]), new Set([2])],
-        [new Set([0, 1, 2]), new Set([0, 1, 2]), new Set([0, 1, 2])],
-        [new Set([0, 1, 2]), new Set([0, 1, 2]), new Set([0, 1, 2])],
+        [new Cell([0]), new Cell([1]), new Cell([2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
       ]);
       expect(
         apply_clue(
@@ -112,8 +113,8 @@ describe("apply_clue", () => {
           board,
         ),
       ).toBe(false);
-      board[0][0] = new Set([0]);
-      board[1][0] = new Set([0]);
+      board[0][0] = new Cell([0]);
+      board[1][0] = new Cell([0]);
       expect(
         apply_clue(
           {
@@ -129,7 +130,7 @@ describe("apply_clue", () => {
     });
 
     test("removes cell if twin cannot be there", () => {
-      board[0][0] = new Set([1]);
+      board[0][0] = new Cell([1]);
       expect(
         apply_clue(
           {
@@ -143,13 +144,13 @@ describe("apply_clue", () => {
         ),
       ).toBe(true);
       expect(board).toEqual([
-        [new Set([1]), new Set([0, 1, 2]), new Set([0, 1, 2])],
-        [new Set([1, 2]), new Set([0, 1, 2]), new Set([0, 1, 2])],
-        [new Set([0, 1, 2]), new Set([0, 1, 2]), new Set([0, 1, 2])],
+        [new Cell([1]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+        [new Cell([1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
       ]);
 
       board = generate_board(3);
-      board[1][0] = new Set([1]);
+      board[1][0] = new Cell([1]);
       expect(
         apply_clue(
           {
@@ -163,14 +164,14 @@ describe("apply_clue", () => {
         ),
       ).toBe(true);
       expect(board).toEqual([
-        [new Set([1, 2]), new Set([0, 1, 2]), new Set([0, 1, 2])],
-        [new Set([1]), new Set([0, 1, 2]), new Set([0, 1, 2])],
-        [new Set([0, 1, 2]), new Set([0, 1, 2]), new Set([0, 1, 2])],
+        [new Cell([1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+        [new Cell([1]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
       ]);
     });
 
     test("sets cell if twin is set", () => {
-      board[0][0] = new Set([0]);
+      board[0][0] = new Cell([0]);
       expect(
         apply_clue(
           {
@@ -184,13 +185,13 @@ describe("apply_clue", () => {
         ),
       ).toBe(true);
       expect(board).toEqual([
-        [new Set([0]), new Set([0, 1, 2]), new Set([0, 1, 2])],
-        [new Set([0]), new Set([1, 2]), new Set([1, 2])],
-        [new Set([0, 1, 2]), new Set([0, 1, 2]), new Set([0, 1, 2])],
+        [new Cell([0]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+        [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
       ]);
 
       board = generate_board(3);
-      board[1][0] = new Set([0]);
+      board[1][0] = new Cell([0]);
       expect(
         apply_clue(
           {
@@ -204,23 +205,105 @@ describe("apply_clue", () => {
         ),
       ).toBe(true);
       expect(board).toEqual([
-        [new Set([0]), new Set([1, 2]), new Set([1, 2])],
-        [new Set([0]), new Set([0, 1, 2]), new Set([0, 1, 2])],
-        [new Set([0, 1, 2]), new Set([0, 1, 2]), new Set([0, 1, 2])],
+        [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])],
+        [new Cell([0]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
       ]);
     });
   });
 
   describe("Adjacent", () => {
-    test("works");
+    test("does nothing if already applied", () => {
+      board[0] = [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])];
+      board[1] = [new Cell([0, 2]), new Cell([1]), new Cell([0, 2])];
+      expect(
+        apply_clue(
+          {
+            type: ClueType.Adjacent,
+            tiles: [
+              [0, 0],
+              [1, 1],
+            ],
+          },
+          board,
+        ),
+      ).toBe(false);
+      board[0] = [new Cell([1, 2]), new Cell([0]), new Cell([1, 2])];
+      board[1] = [new Cell([1]), new Cell([0, 2]), new Cell([0, 2])];
+      expect(
+        apply_clue(
+          {
+            type: ClueType.Adjacent,
+            tiles: [
+              [0, 0],
+              [1, 1],
+            ],
+          },
+          board,
+        ),
+      ).toBe(false);
+    });
+
+    test("removes options where not possible", () => {
+      board[0] = [new Cell([0, 1, 2]), new Cell([1, 2]), new Cell([1, 2])];
+      board[1] = [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])];
+      expect(
+        apply_clue(
+          {
+            type: ClueType.Adjacent,
+            tiles: [
+              [0, 0],
+              [1, 0],
+            ],
+          },
+          board,
+        ),
+      ).toBe(true);
+      expect(board).toEqual([
+        [new Cell([0, 1, 2]), new Cell([1, 2]), new Cell([1, 2])],
+        [new Cell([1, 2]), new Cell([0, 1, 2]), new Cell([1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+      ]);
+    });
+
+    test("sets others if already set", () => {
+      board[0] = [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])];
+      board[1] = [new Cell([0, 2]), new Cell([1]), new Cell([0, 2])];
+      expect(
+        apply_clue(
+          {
+            type: ClueType.Adjacent,
+            tiles: [
+              [0, 0],
+              [1, 1],
+            ],
+          },
+          board,
+        ),
+      ).toBe(false);
+      board[0] = [new Cell([1, 2]), new Cell([0]), new Cell([1, 2])];
+      board[1] = [new Cell([1]), new Cell([0, 2]), new Cell([0, 2])];
+      expect(
+        apply_clue(
+          {
+            type: ClueType.Adjacent,
+            tiles: [
+              [0, 0],
+              [1, 1],
+            ],
+          },
+          board,
+        ),
+      ).toBe(false);
+    });
   });
   describe("Sequential", () => {
     test("works");
   });
   describe("Before", () => {
     test("does nothing if already applied", () => {
-      board[0] = [new Set([0]), new Set([1, 2]), new Set([1, 2])];
-      board[1] = [new Set([0, 2]), new Set([1]), new Set([0, 2])];
+      board[0] = [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])];
+      board[1] = [new Cell([0, 2]), new Cell([1]), new Cell([0, 2])];
       expect(
         apply_clue(
           {
@@ -249,9 +332,9 @@ describe("apply_clue", () => {
         ),
       ).toBe(true);
       expect(board).toEqual([
-        [new Set([0, 1, 2]), new Set([0, 1, 2]), new Set([1, 2])],
-        [new Set([0, 2]), new Set([0, 1, 2]), new Set([0, 1, 2])],
-        [new Set([0, 1, 2]), new Set([0, 1, 2]), new Set([0, 1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([1, 2])],
+        [new Cell([0, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
       ]);
     });
   });

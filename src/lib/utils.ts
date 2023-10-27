@@ -13,10 +13,6 @@ export function shuffle<A extends unknown[]>(a: A): A {
   return a;
 }
 
-export function cell_is(cell: Set<number>, id: number) {
-  return cell.has(id) && cell.size === 1;
-}
-
 export function swap<A extends [unknown, unknown, ...unknown[]]>(a: A): A {
   if (Math.random() < 0.5) {
     const x = a[a.length - 1];

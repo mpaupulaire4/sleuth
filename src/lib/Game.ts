@@ -6,6 +6,8 @@ import {
 } from "./Game/Board";
 import { generate_clues, type Clue } from "./Game/Clue";
 
+// TODO: use a set of IDs to chech that cles have been completed
+// and for when the board is solved: Set<`${row}:${id}`>
 class Board {
   static generate(): iBoard {
     const solved_board = generate_solved_board();

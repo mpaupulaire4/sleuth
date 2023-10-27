@@ -1,7 +1,7 @@
 import type { Subscriber, Unsubscriber, Readable } from "svelte/store";
 import type { iBoard } from "./Board";
 
-export class Cell<T> extends Set<T> implements Readable<Cell<T>> {
+export class Cell<T> extends Set<T> implements Readable<Set<T>> {
   private subscribers: Subscriber<Cell<T>>[] = [];
 
   set = (v: T): boolean => {
@@ -15,9 +15,13 @@ export class Cell<T> extends Set<T> implements Readable<Cell<T>> {
     return changed;
   };
 
+  is(id: T) {
+    return this.has(id) && this.size === 1;
+  }
+
   notify = () => {
     this.subscribers.forEach((sub) => sub(this));
-  }
+  };
 
   subscribe = (run: Subscriber<Cell<T>>): Unsubscriber => {
     this.subscribers.push(run);
@@ -62,6 +66,15 @@ export function remove_from_board(
     }
   } else {
     changed = cell.delete(id);
+    // NOTE: not sure if this should be added
+    // if there is only one place a tile can go
+    // should we auto trigger the cell for the user
+    // if (changed) {
+    //   const others = board[row].filter((s) => s.has(id));
+    //   if (others.length === 1) {
+    //     // remove_from_board()
+    //   }
+    // }
   }
   if (changed && cell.size === 1) {
     const v = cell.values().next().value as number;
