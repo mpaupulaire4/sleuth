@@ -1,5 +1,5 @@
 import { type iBoard, type iSolvedBoard } from "./Board";
-import { remove_from_board } from "./Cell";
+import { remove_from_board, Cell } from "./Cell";
 import { shuffle, swap } from "../utils";
 
 export const enum ClueType {
@@ -127,7 +127,53 @@ interface SequentialClue extends BaseClue {
 }
 
 function applySequential(clue: SequentialClue, board: iBoard): boolean {
-  throw "not implemented";
+  let changed = false;
+  for (let c = 0; c < board.length; c++) {
+    const [row1, id1] = clue.tiles[0];
+    const [rowMid, idMid] = clue.tiles[1];
+    const [row2, id2] = clue.tiles[2];
+    const cellMid = board[rowMid][c];
+    if (cellMid.is(idMid)) {
+      changed = remove_from_board(board, row1, c, id1) || changed;
+      changed = remove_from_board(board, row2, c, id2) || changed;
+    } else if (
+      (!board[row1][c - 1]?.has(id1) && !board[row2][c - 1]?.has(id2)) ||
+      (!board[row1][c + 1]?.has(id1) && !board[row2][c + 1]?.has(id2))
+    ) {
+      changed = remove_from_board(board, rowMid, c, idMid) || changed;
+    }
+    for (let [me, other] of [
+      [0, 2],
+      [2, 0],
+    ]) {
+      const [row1, id1] = clue.tiles[me];
+      const [row2, id2] = clue.tiles[other];
+      const cell1 = board[row1][c - 1] as Cell<number> | undefined;
+      const cell2 = board[row2][c + 1] as Cell<number> | undefined;
+      if (cellMid.is(idMid)) {
+        if (!cell1?.has(id1) || !cell2?.has(id2)) {
+          changed = remove_from_board(board, row2, c - 1, id2, true);
+          return remove_from_board(board, row1, c + 1, id1, true) || changed;
+        }
+      } else if (cell1?.is(id1) && cell2?.is(id2)) {
+        return remove_from_board(board, rowMid, c, idMid, true) || changed;
+      }
+      const cell = board[row1][c];
+      const cellMidR = board[rowMid][c + 1] as Cell<number> | undefined;
+      const cellMidL = board[rowMid][c - 1] as Cell<number> | undefined;
+      if (cell.is(id1)) {
+        if (!cellMidL?.has(idMid)) {
+          changed = remove_from_board(board, rowMid, c + 1, idMid, true);
+          return remove_from_board(board, row2, c + 2, id2, true) || changed;
+        }
+        if (!cellMidR?.has(idMid)) {
+          changed = remove_from_board(board, rowMid, c - 1, idMid, true);
+          return remove_from_board(board, row2, c - 2, id2, true) || changed;
+        }
+      }
+    }
+  }
+  return changed;
 }
 
 export type Clue =

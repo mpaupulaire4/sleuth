@@ -245,7 +245,7 @@ describe("apply_clue", () => {
     });
 
     test("removes options where not possible", () => {
-      board[0] = [new Cell([0, 1, 2]), new Cell([1, 2]), new Cell([1, 2])];
+      board[0] = [new Cell([0, 1, 2]), new Cell([1, 2]), new Cell([0, 1, 2])];
       board[1] = [
         new Cell([0, 1, 2]),
         new Cell([0, 1, 2]),
@@ -264,8 +264,8 @@ describe("apply_clue", () => {
         ),
       ).toBe(true);
       expect(board).toEqual([
-        [new Cell([0, 1, 2]), new Cell([1, 2]), new Cell([1, 2])],
-        [new Cell([1, 2]), new Cell([0, 1, 2]), new Cell([1, 2])],
+        [new Cell([0, 1, 2]), new Cell([1, 2]), new Cell([0, 1, 2])],
+        [new Cell([1, 2]), new Cell([0]), new Cell([1, 2])],
         [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
       ]);
     });
@@ -293,8 +293,149 @@ describe("apply_clue", () => {
     });
   });
   describe("Sequential", () => {
-    test("works");
+    test("does nothing if already applied", () => {
+      board = [
+        [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])],
+        [new Cell([1, 2]), new Cell([0]), new Cell([1, 2])],
+        [new Cell([1, 2]), new Cell([1, 2]), new Cell([0])],
+      ];
+      expect(
+        apply_clue(
+          {
+            type: ClueType.Sequential,
+            tiles: [
+              [0, 0],
+              [1, 0],
+              [2, 0],
+            ],
+          },
+          board,
+        ),
+      ).toBe(false);
+      board = [
+        [new Cell([1, 2]), new Cell([1, 2]), new Cell([0])],
+        [new Cell([1, 2]), new Cell([0]), new Cell([1, 2])],
+        [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])],
+      ];
+      expect(
+        apply_clue(
+          {
+            type: ClueType.Sequential,
+            tiles: [
+              [0, 0],
+              [1, 0],
+              [2, 0],
+            ],
+          },
+          board,
+        ),
+      ).toBe(false);
+      board = [
+        [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])],
+        [new Cell([1, 2]), new Cell([0]), new Cell([1, 2])],
+        [new Cell([1, 2]), new Cell([1, 2]), new Cell([0])],
+      ];
+      expect(
+        apply_clue(
+          {
+            type: ClueType.Sequential,
+            tiles: [
+              [2, 0],
+              [1, 0],
+              [0, 0],
+            ],
+          },
+          board,
+        ),
+      ).toBe(false);
+    });
+
+    test("removes options where not possible", () => {
+      expect(
+        apply_clue(
+          {
+            type: ClueType.Sequential,
+            tiles: [
+              [0, 0],
+              [1, 0],
+              [2, 0],
+            ],
+          },
+          board,
+        ),
+      ).toBe(true);
+      expect(board).toEqual([
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+        [new Cell([1, 2]), new Cell([0]), new Cell([1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+      ]);
+    });
+
+    test("sets others if already set", () => {
+      board[0] = [new Cell([1, 2]), new Cell([1, 2]), new Cell([0])];
+      expect(
+        apply_clue(
+          {
+            type: ClueType.Sequential,
+            tiles: [
+              [0, 0],
+              [1, 0],
+              [2, 0],
+            ],
+          },
+          board,
+        ),
+      ).toBe(true);
+      expect(board).toEqual([
+        [new Cell([1, 2]), new Cell([1, 2]), new Cell([0])],
+        [new Cell([1, 2]), new Cell([0]), new Cell([1, 2])],
+        [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])],
+      ]);
+
+      board = generate_board(3);
+      board[0] = [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])];
+      expect(
+        apply_clue(
+          {
+            type: ClueType.Sequential,
+            tiles: [
+              [0, 0],
+              [1, 0],
+              [2, 0],
+            ],
+          },
+          board,
+        ),
+      ).toBe(true);
+      expect(board).toEqual([
+        [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])],
+        [new Cell([1, 2]), new Cell([0]), new Cell([1, 2])],
+        [new Cell([1, 2]), new Cell([1, 2]), new Cell([0])],
+      ]);
+
+      board = generate_board(3);
+      board[0] = [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])];
+      expect(
+        apply_clue(
+          {
+            type: ClueType.Sequential,
+            tiles: [
+              [0, 0],
+              [1, 0],
+              [2, 0],
+            ],
+          },
+          board,
+        ),
+      ).toBe(true);
+      expect(board).toEqual([
+        [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])],
+        [new Cell([1, 2]), new Cell([0]), new Cell([1, 2])],
+        [new Cell([1, 2]), new Cell([1, 2]), new Cell([0])],
+      ]);
+    });
   });
+
   describe("Before", () => {
     test("does nothing if already applied", () => {
       board[0] = [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])];

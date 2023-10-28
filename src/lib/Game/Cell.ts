@@ -48,6 +48,7 @@ export function add_to_board(
   return false;
 }
 
+// TODO: Simplify
 export function remove_from_board(
   board: iBoard,
   row: number,
@@ -61,20 +62,22 @@ export function remove_from_board(
     for (let o of cell) {
       if (o !== id) {
         changed = true;
-        cell.delete(o);
+        remove_from_board(board, row, col, o);
       }
     }
   } else {
     changed = cell.delete(id);
-    // NOTE: not sure if this should be added
-    // if there is only one place a tile can go
-    // should we auto trigger the cell for the user
-    // if (changed) {
-    //   const others = board[row].filter((s) => s.has(id));
-    //   if (others.length === 1) {
-    //     // remove_from_board()
-    //   }
-    // }
+    if (changed) {
+      let newCol = 0;
+      const others = board[row].filter((s, i) => {
+        let b = s.has(id);
+        if (b) newCol = i;
+        return s.has(id);
+      });
+      if (others.length === 1) {
+        remove_from_board(board, row, newCol, id, true);
+      }
+    }
   }
   if (changed && cell.size === 1) {
     const v = cell.values().next().value as number;
