@@ -210,21 +210,21 @@ export function generate_clues(board: iSolvedBoard): Clue[] {
         for (let r2 = 0; r2 < board.length; r2++) {
           clues.push({
             type: ClueType.Adjacent,
-            tiles: [
+            tiles: swap([
               [r, id],
               [r2, board[r2][c + 1]],
-            ],
+            ]),
           });
           if (c > 0) {
             // Sequential clues.
             for (let r3 = 0; r3 < board.length; r3++) {
               clues.push({
                 type: ClueType.Sequential,
-                tiles: [
+                tiles: swap([
                   [r2, board[r2][c - 1]],
                   [r, id],
                   [r3, board[r3][c + 1]],
-                ],
+                ]),
               });
             }
           }

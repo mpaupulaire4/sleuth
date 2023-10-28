@@ -13,7 +13,7 @@ class Game {
   static generate(): Clue[] {
     const solved_board = generate_solved_board();
     const board = new Board();
-    const all_clues = randomise_clues(generate_clues(solved_board));
+    const all_clues = generate_clues(solved_board);
     const clues: Clue[] = [];
     let solved = false;
 
@@ -46,22 +46,25 @@ class Game {
     // for clue in Global.clues:
     //   clue.disabled = false
     // TODO: Need to randomize clues before finishing
-    return randomise_clues(clues);
+    return shuffle(clues);
   }
 }
 
-function solve(all_clues: Clue[], size = 6) {
+export function solve(all_clues: Clue[], size = 6): Clue[] {
   const board = new Board(size);
   let solved = false;
   const clues: Clue[] = [];
   while (!solved) {
     const i = Math.floor(Math.random() * all_clues.length);
     const clue = all_clues[i];
-
-    if (apply_clue(clue, board)) {
+    if (clue && apply_clue(clue, board)) {
       clues.push(clue);
     } else {
       continue;
     }
+    break;
+    // let
+    // while(clues.every(c => !apply_clue(c, board)))
   }
+  return clues;
 }

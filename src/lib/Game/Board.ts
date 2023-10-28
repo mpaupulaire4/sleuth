@@ -9,12 +9,29 @@ export type iSolvedBoard = Array<Array<number>>;
 export class Board implements Iterable<Iterable<Cell<number>>> {
   protected _cells: iBoard;
 
+  get solved() {
+    return true;
+  }
+
   constructor(size = BOARD_SIZE) {
     this._cells = generate_board(size);
   }
 
   get length() {
     return this._cells.length;
+  }
+
+  is(solved: iSolvedBoard) {
+    for (let r = 0; r < solved.length; r++) {
+      for (let c = 0; c < solved[r].length; c++) {
+        if (!this._cells[r][c]?.is(solved[r][c]))
+          {
+return false
+          }
+
+      }
+    }
+    return true
   }
 
   get(row: number, col: number): Cell<number> | undefined {

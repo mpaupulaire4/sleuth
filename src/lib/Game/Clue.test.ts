@@ -14,6 +14,9 @@ class TestBoard extends Board {
 
 describe("generate_clues", () => {
   test("generates all clues", () => {
+    const rand = Math.random;
+    Math.random = () => 0.6;
+
     const board: iSolvedBoard = [
       [0, 1, 2],
       [0, 1, 2],
@@ -40,6 +43,8 @@ describe("generate_clues", () => {
     const sequential = clues.filter(({ type }) => type === ClueType.Sequential);
     expect(sequential.length).toBe(27);
     expect(sequential).toMatchSnapshot("sequential clues");
+
+    Math.random = rand;
   });
 });
 
