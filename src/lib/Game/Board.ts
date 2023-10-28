@@ -24,14 +24,12 @@ export class Board implements Iterable<Iterable<Cell<number>>> {
   is(solved: iSolvedBoard) {
     for (let r = 0; r < solved.length; r++) {
       for (let c = 0; c < solved[r].length; c++) {
-        if (!this._cells[r][c]?.is(solved[r][c]))
-          {
-return false
-          }
-
+        if (!this._cells[r][c]?.is(solved[r][c])) {
+          return false;
+        }
       }
     }
-    return true
+    return true;
   }
 
   get(row: number, col: number): Cell<number> | undefined {
