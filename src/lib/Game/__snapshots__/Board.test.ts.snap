@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`generate_solved_board > generates a board of the specified size 1`] = `
+exports[`generate_solved_board > generates a solved board of the specified size 1`] = `
 [
   [
     2,
@@ -20,7 +20,7 @@ exports[`generate_solved_board > generates a board of the specified size 1`] = `
 ]
 `;
 
-exports[`generate_solved_board > generates a board of the specified size 2`] = `
+exports[`generate_solved_board > generates a solved board of the specified size 2`] = `
 [
   [
     1,

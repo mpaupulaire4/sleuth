@@ -1,5 +1,4 @@
-import { type iBoard, type iSolvedBoard } from "./Board";
-import { remove_from_board, Cell } from "./Cell";
+import { Board, type iSolvedBoard } from "./Board";
 import { shuffle, swap } from "../utils";
 
 export const enum ClueType {
@@ -21,10 +20,10 @@ interface ExactClue extends BaseClue {
   col: number;
 }
 
-function applyExact(clue: ExactClue, board: iBoard): boolean {
+function applyExact(clue: ExactClue, board: Board): boolean {
   const [[row, id]] = clue.tiles;
   const col = clue.col;
-  return remove_from_board(board, row, col, id, true);
+  return board.remove(row, col, id, true);
 }
 
 interface AdjacentClue extends BaseClue {
@@ -32,7 +31,7 @@ interface AdjacentClue extends BaseClue {
   tiles: [[number, number], [number, number]];
 }
 
-function applyAdjacent(clue: AdjacentClue, board: iBoard): boolean {
+function applyAdjacent(clue: AdjacentClue, board: Board): boolean {
   let changed = false;
   for (let c = 0; c < board.length; c++) {
     for (let [one, two] of [
@@ -41,19 +40,19 @@ function applyAdjacent(clue: AdjacentClue, board: iBoard): boolean {
     ]) {
       const [row1, id1] = clue.tiles[one];
       const [row2, id2] = clue.tiles[two];
-      const cell = board[row1][c];
-      const cellL = board[row2][c - 1] as Set<number> | undefined;
-      const cellR = board[row2][c + 1] as Set<number> | undefined;
-      if (cell.is(id1)) {
-        changed = remove_from_board(board, row2, c, id2) || changed;
+      const cell = board.get(row1, c);
+      const cellL = board.get(row2, c - 1);
+      const cellR = board.get(row2, c + 1);
+      if (cell?.is(id1)) {
+        changed = board.remove(row2, c, id2) || changed;
         if (!cellL?.has(id2)) {
-          return remove_from_board(board, row2, c + 1, id2, true) || changed;
+          return board.remove(row2, c + 1, id2, true) || changed;
         }
         if (!cellR?.has(id2)) {
-          return remove_from_board(board, row2, c - 1, id2, true) || changed;
+          return board.remove(row2, c - 1, id2, true) || changed;
         }
       } else if (!cellL?.has(id2) && !cellR?.has(id2)) {
-        changed = remove_from_board(board, row1, c, id1);
+        changed = board.remove(row1, c, id1);
       }
     }
   }
@@ -65,24 +64,24 @@ interface SameClue extends BaseClue {
   tiles: [[number, number], [number, number]];
 }
 
-function applySame(clue: SameClue, board: iBoard): boolean {
+function applySame(clue: SameClue, board: Board): boolean {
   let changed = false;
   const [[row1, id1], [row2, id2]] = clue.tiles;
   for (let c = 0; c < board.length; c++) {
-    const cell1 = board[row1][c];
-    const cell2 = board[row2][c];
+    const cell1 = board.get(row1, c);
+    const cell2 = board.get(row2, c);
 
-    if (cell1.is(id1)) {
-      return remove_from_board(board, row2, c, id2, true);
+    if (cell1?.is(id1)) {
+      return board.remove(row2, c, id2, true);
     }
-    if (cell2.is(id2)) {
-      return remove_from_board(board, row1, c, id1, true);
+    if (cell2?.is(id2)) {
+      return board.remove(row1, c, id1, true);
     }
-    if (!cell1.has(id1)) {
-      changed = remove_from_board(board, row2, c, id2) || changed;
+    if (!cell1?.has(id1)) {
+      changed = board.remove(row2, c, id2) || changed;
     }
-    if (!cell2.has(id2)) {
-      changed = remove_from_board(board, row1, c, id1) || changed;
+    if (!cell2?.has(id2)) {
+      changed = board.remove(row1, c, id1) || changed;
     }
   }
   return changed;
@@ -93,28 +92,28 @@ interface BeforeClue extends BaseClue {
   tiles: [[number, number], [number, number]];
 }
 
-function applyBefore(clue: BeforeClue, board: iBoard): boolean {
+function applyBefore(clue: BeforeClue, board: Board): boolean {
   const [[row1, id1], [row2, id2]] = clue.tiles;
   let changed = false;
   let found_fist = false;
   let found_second = false;
   let c = 0;
   for (; c < board.length; c++) {
-    const cell1 = board[row1][c];
+    const cell1 = board.get(row1, c);
     if (!found_fist) {
-      changed = remove_from_board(board, row2, c, id2) || changed;
+      changed = board.remove(row2, c, id2) || changed;
     }
-    if (cell1.has(id1)) {
+    if (cell1?.has(id1)) {
       found_fist = true;
       break;
     }
   }
   for (let c2 = board.length - 1; c2 > c; c2--) {
-    const cell2 = board[row2][c2];
+    const cell2 = board.get(row2, c2);
     if (!found_second) {
-      changed = remove_from_board(board, row1, c2, id1) || changed;
+      changed = board.remove(row1, c2, id1) || changed;
     }
-    if (cell2.has(id2)) {
+    if (cell2?.has(id2)) {
       break;
     }
   }
@@ -126,21 +125,22 @@ interface SequentialClue extends BaseClue {
   tiles: [[number, number], [number, number], [number, number]];
 }
 
-function applySequential(clue: SequentialClue, board: iBoard): boolean {
+function applySequential(clue: SequentialClue, board: Board): boolean {
   let changed = false;
   for (let c = 0; c < board.length; c++) {
     const [row1, id1] = clue.tiles[0];
     const [rowMid, idMid] = clue.tiles[1];
     const [row2, id2] = clue.tiles[2];
-    const cellMid = board[rowMid][c];
-    if (cellMid.is(idMid)) {
-      changed = remove_from_board(board, row1, c, id1) || changed;
-      changed = remove_from_board(board, row2, c, id2) || changed;
+    const cellMid = board.get(rowMid, c);
+    if (cellMid?.is(idMid)) {
+      changed = board.remove(row1, c, id1) || changed;
+      changed = board.remove(row2, c, id2) || changed;
     } else if (
-      (!board[row1][c - 1]?.has(id1) && !board[row2][c - 1]?.has(id2)) ||
-      (!board[row1][c + 1]?.has(id1) && !board[row2][c + 1]?.has(id2))
+      (!board.get(row1, c - 1)?.has(id1) &&
+        !board.get(row2, c - 1)?.has(id2)) ||
+      (!board.get(row1, c + 1)?.has(id1) && !board.get(row2, c + 1)?.has(id2))
     ) {
-      changed = remove_from_board(board, rowMid, c, idMid) || changed;
+      changed = board.remove(rowMid, c, idMid) || changed;
     }
     for (let [me, other] of [
       [0, 2],
@@ -148,27 +148,27 @@ function applySequential(clue: SequentialClue, board: iBoard): boolean {
     ]) {
       const [row1, id1] = clue.tiles[me];
       const [row2, id2] = clue.tiles[other];
-      const cell1 = board[row1][c - 1] as Cell<number> | undefined;
-      const cell2 = board[row2][c + 1] as Cell<number> | undefined;
-      if (cellMid.is(idMid)) {
+      const cell1 = board.get(row1, c - 1);
+      const cell2 = board.get(row2, c + 1);
+      if (cellMid?.is(idMid)) {
         if (!cell1?.has(id1) || !cell2?.has(id2)) {
-          changed = remove_from_board(board, row2, c - 1, id2, true);
-          return remove_from_board(board, row1, c + 1, id1, true) || changed;
+          changed = board.remove(row2, c - 1, id2, true);
+          return board.remove(row1, c + 1, id1, true) || changed;
         }
       } else if (cell1?.is(id1) && cell2?.is(id2)) {
-        return remove_from_board(board, rowMid, c, idMid, true) || changed;
+        return board.remove(rowMid, c, idMid, true) || changed;
       }
-      const cell = board[row1][c];
-      const cellMidR = board[rowMid][c + 1] as Cell<number> | undefined;
-      const cellMidL = board[rowMid][c - 1] as Cell<number> | undefined;
-      if (cell.is(id1)) {
+      const cell = board.get(row1, c);
+      const cellMidR = board.get(rowMid, c + 1);
+      const cellMidL = board.get(rowMid, c - 1);
+      if (cell?.is(id1)) {
         if (!cellMidL?.has(idMid)) {
-          changed = remove_from_board(board, rowMid, c + 1, idMid, true);
-          return remove_from_board(board, row2, c + 2, id2, true) || changed;
+          changed = board.remove(rowMid, c + 1, idMid, true);
+          return board.remove(row2, c + 2, id2, true) || changed;
         }
         if (!cellMidR?.has(idMid)) {
-          changed = remove_from_board(board, rowMid, c - 1, idMid, true);
-          return remove_from_board(board, row2, c - 2, id2, true) || changed;
+          changed = board.remove(rowMid, c - 1, idMid, true);
+          return board.remove(row2, c - 2, id2, true) || changed;
         }
       }
     }
@@ -256,7 +256,7 @@ export function randomise_clues(clues: Clue[]) {
   shuffle(clues);
 }
 
-export function apply_clue(clue: Clue, board: iBoard): boolean {
+export function apply_clue(clue: Clue, board: Board): boolean {
   switch (clue.type) {
     case ClueType.Exact: {
       return applyExact(clue, board);
