@@ -247,13 +247,13 @@ export function generate_clues(board: iSolvedBoard): Clue[] {
   return clues;
 }
 
-export function randomise_clues(clues: Clue[]) {
+export function randomise_clues(clues: Clue[]): Clue[] {
   for (let clue of clues) {
     if (clue.type === ClueType.Adjacent || clue.type === ClueType.Sequential) {
       swap(clue.tiles);
     }
   }
-  shuffle(clues);
+  return shuffle(clues);
 }
 
 export function apply_clue(clue: Clue, board: Board): boolean {

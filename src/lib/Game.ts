@@ -1,25 +1,30 @@
 import { shuffle } from "./utils";
+import { Board, generate_solved_board } from "./Game/Board";
 import {
-  type iBoard,
-  generate_solved_board,
-  generate_board,
-} from "./Game/Board";
-import { generate_clues, type Clue } from "./Game/Clue";
+  generate_clues,
+  type Clue,
+  randomise_clues,
+  apply_clue,
+} from "./Game/Clue";
 
 // TODO: use a set of IDs to chech that cles have been completed
 // and for when the board is solved: Set<`${row}:${id}`>
-class Board {
-  static generate(): iBoard {
+class Game {
+  static generate(): Clue[] {
     const solved_board = generate_solved_board();
-    const board = generate_board();
-    const all_clues = generate_clues(solved_board);
+    const board = new Board();
+    const all_clues = randomise_clues(generate_clues(solved_board));
     const clues: Clue[] = [];
     let solved = false;
 
     while (!solved) {
       // Getting the last clue is faster than getting the first one.
       const clue = all_clues.pop()!;
-      clues.push(clue);
+      if (apply_clue(clue, board)) {
+        clues.push(clue);
+      } else {
+        continue;
+      }
 
       // solved = Solver.solve()
 
@@ -41,6 +46,22 @@ class Board {
     // for clue in Global.clues:
     //   clue.disabled = false
     // TODO: Need to randomize clues before finishing
-    return [];
+    return randomise_clues(clues);
+  }
+}
+
+function solve(all_clues: Clue[], size = 6) {
+  const board = new Board(size);
+  let solved = false;
+  const clues: Clue[] = [];
+  while (!solved) {
+    const i = Math.floor(Math.random() * all_clues.length);
+    const clue = all_clues[i];
+
+    if (apply_clue(clue, board)) {
+      clues.push(clue);
+    } else {
+      continue;
+    }
   }
 }

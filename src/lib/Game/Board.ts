@@ -84,7 +84,7 @@ export function generate_solved_board(board_size = BOARD_SIZE): iSolvedBoard {
   return board;
 }
 
-export function generate_board(board_size = BOARD_SIZE): iBoard {
+function generate_board(board_size = BOARD_SIZE): iBoard {
   const board: iBoard = [];
   const tiles = Array(board_size)
     .fill(0)
