@@ -1,70 +1,35 @@
 import { shuffle } from "./utils";
 import { Board, generate_solved_board } from "./Game/Board";
-import {
-  generate_clues,
-  type Clue,
-  randomise_clues,
-  apply_clue,
-} from "./Game/Clue";
+import { generate_clues, type Clue, apply_clue } from "./Game/Clue";
+
+const BOARD_SIZE = 6;
 
 // TODO: use a set of IDs to chech that cles have been completed
 // and for when the board is solved: Set<`${row}:${id}`>
-class Game {
-  static generate(): Clue[] {
-    const solved_board = generate_solved_board();
-    const board = new Board();
-    const all_clues = generate_clues(solved_board);
-    const clues: Clue[] = [];
-    let solved = false;
-
-    while (!solved) {
-      // Getting the last clue is faster than getting the first one.
-      const clue = all_clues.pop()!;
-      if (apply_clue(clue, board)) {
-        clues.push(clue);
-      } else {
-        continue;
-      }
-
-      // solved = Solver.solve()
-
-      // Remove the last clue if it didn't affect the board.
-      // if Global.board == board:
-      //   Global.clues.erase(clue)
-    }
-
-    // var clues = Global.clues.duplicate()
-    // for clue in clues:
-    //   if randi_range(1, 10) > 3:
-    //     Global.clues.erase(clue)
-    // if not Solver.solve():
-    // Global.clues.append(clue)
-    //
-    // // Clues are ready; reset board and shuffle clues.
-    // Global.setup_board()
-    // Global.clues.shuffle()
-    // for clue in Global.clues:
-    //   clue.disabled = false
-    // TODO: Need to randomize clues before finishing
-    return shuffle(clues);
-  }
+export function generate(): Clue[] {
+  const solved_board = generate_solved_board(BOARD_SIZE);
+  const all_clues = generate_clues(solved_board);
+  return solve(shuffle(all_clues));
 }
 
 export function solve(all_clues: Clue[], size = 6): Clue[] {
   const board = new Board(size);
-  let solved = false;
   const clues: Clue[] = [];
-  while (!solved) {
-    const i = Math.floor(Math.random() * all_clues.length);
-    const clue = all_clues[i];
-    if (clue && apply_clue(clue, board)) {
-      clues.push(clue);
-    } else {
-      continue;
+  while (!board.solved) {
+    const clue = all_clues.pop();
+    if (!clue) continue;
+
+    apply_clue(clue, board);
+    if (!board.changed) continue;
+
+    clues.push(clue);
+    while (board.changed) {
+      board.clearChanges();
+      for (let clue of clues) {
+        apply_clue(clue, board);
+      }
     }
-    break;
-    // let
-    // while(clues.every(c => !apply_clue(c, board)))
+    board.clearChanges();
   }
-  return clues;
+  return shuffle(clues);
 }

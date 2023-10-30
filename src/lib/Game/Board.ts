@@ -6,19 +6,52 @@ const BOARD_SIZE = 6;
 export type iBoard = Array<Array<Cell<number>>>;
 export type iSolvedBoard = Array<Array<number>>;
 
+// TODO: have the board keep track of changes and
+// remove from logic from apply
+
 export class Board implements Iterable<Iterable<Cell<number>>> {
   protected _cells: iBoard;
-
-  get solved() {
-    return true;
-  }
+  protected finished: Set<`${number}:${number}`> = new Set();
+  protected changed_cells: Set<Cell<number>> = new Set();
 
   constructor(size = BOARD_SIZE) {
     this._cells = generate_board(size);
   }
 
+  get solved() {
+    return this.finished.size === this._cells.length * this._cells.length;
+  }
+
   get length() {
     return this._cells.length;
+  }
+
+  get changed() {
+    return this.changed_cells.size > 0;
+  }
+
+  print() {
+    console.log(
+      this._cells
+        .map(
+          (r) =>
+            `${r
+              .map((c) => `[${[...c].join(" ").padEnd(11, " ")}]`)
+              .join(" ")}`,
+        )
+        .join("\n"),
+    );
+  }
+
+  clearChanges() {
+    this.changed_cells.clear();
+  }
+
+  notify() {
+    for (let cell of this.changed_cells) {
+      cell.notify();
+    }
+    this.changed_cells.clear();
   }
 
   is(solved: iSolvedBoard) {
@@ -40,6 +73,8 @@ export class Board implements Iterable<Iterable<Cell<number>>> {
     const cell = this.get(row, col);
     if (cell && !cell.has(id)) {
       cell.add(id);
+      this.finished.delete(`${row}:${id}`);
+      this.changed_cells.add(cell);
       return true;
     }
     return false;
@@ -61,6 +96,7 @@ export class Board implements Iterable<Iterable<Cell<number>>> {
       changed = cell.delete(id);
       if (changed) {
         let newCol = 0;
+        this.changed_cells.add(cell);
         const others = this._cells[row].filter((s, i) => {
           let b = s.has(id);
           if (b) newCol = i;
@@ -73,6 +109,7 @@ export class Board implements Iterable<Iterable<Cell<number>>> {
     }
     if (changed && cell.size === 1) {
       const v = cell.values().next().value as number;
+      this.finished.add(`${row}:${v}`);
       for (let i = 0; i < this._cells[row].length; i++) {
         if (i === col) continue;
         this.remove(row, i, v);

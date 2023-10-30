@@ -52,7 +52,7 @@ function applyAdjacent(clue: AdjacentClue, board: Board): boolean {
           return board.remove(row2, c - 1, id2, true) || changed;
         }
       } else if (!cellL?.has(id2) && !cellR?.has(id2)) {
-        changed = board.remove(row1, c, id1);
+        changed = board.remove(row1, c, id1) || changed;
       }
     }
   }
@@ -70,12 +70,11 @@ function applySame(clue: SameClue, board: Board): boolean {
   for (let c = 0; c < board.length; c++) {
     const cell1 = board.get(row1, c);
     const cell2 = board.get(row2, c);
-
     if (cell1?.is(id1)) {
-      return board.remove(row2, c, id2, true);
+      return board.remove(row2, c, id2, true) || changed;
     }
     if (cell2?.is(id2)) {
-      return board.remove(row1, c, id1, true);
+      return board.remove(row1, c, id1, true) || changed;
     }
     if (!cell1?.has(id1)) {
       changed = board.remove(row2, c, id2) || changed;
@@ -152,7 +151,7 @@ function applySequential(clue: SequentialClue, board: Board): boolean {
       const cell2 = board.get(row2, c + 1);
       if (cellMid?.is(idMid)) {
         if (!cell1?.has(id1) || !cell2?.has(id2)) {
-          changed = board.remove(row2, c - 1, id2, true);
+          changed = board.remove(row2, c - 1, id2, true) || changed;
           return board.remove(row1, c + 1, id1, true) || changed;
         }
       } else if (cell1?.is(id1) && cell2?.is(id2)) {
@@ -163,11 +162,11 @@ function applySequential(clue: SequentialClue, board: Board): boolean {
       const cellMidL = board.get(rowMid, c - 1);
       if (cell?.is(id1)) {
         if (!cellMidL?.has(idMid)) {
-          changed = board.remove(rowMid, c + 1, idMid, true);
+          changed = board.remove(rowMid, c + 1, idMid, true) || changed;
           return board.remove(row2, c + 2, id2, true) || changed;
         }
         if (!cellMidR?.has(idMid)) {
-          changed = board.remove(rowMid, c - 1, idMid, true);
+          changed = board.remove(rowMid, c - 1, idMid, true) || changed;
           return board.remove(row2, c - 2, id2, true) || changed;
         }
       }

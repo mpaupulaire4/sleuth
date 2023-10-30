@@ -40,7 +40,9 @@ describe("Board", () => {
   describe("add_to_board", () => {
     test("allows adding to board", () => {
       expect(board.add(0, 0, 0)).toBe(false);
+      expect(board.changed).toBe(false);
       expect(board.add(0, 0, 3)).toBe(true);
+      expect(board.changed).toBe(true);
       expect([...board]).toEqual([
         [new Cell([0, 1, 2, 3]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
         [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
@@ -52,6 +54,7 @@ describe("Board", () => {
   describe("remove_from_board", () => {
     test("allows removing from the board", () => {
       expect(board.remove(0, 0, 0)).toBe(true);
+      expect(board.changed).toBe(true);
       expect([...board]).toEqual([
         [new Cell([1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
         [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
@@ -64,22 +67,29 @@ describe("Board", () => {
       board.cells[1][1] = new Cell([0, 1]);
       board.cells[1][0] = new Cell([0, 1]);
       expect(board.remove(0, 0, 0, true)).toBe(true);
+      expect(board.changed).toBe(true);
       expect([...board]).toEqual([
         [new Cell([0]), new Cell([1]), new Cell([2])],
         [new Cell([0, 1]), new Cell([0, 1]), new Cell([0, 1, 2])],
         [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
       ]);
+      board.clearChanges();
       expect(board.remove(1, 0, 1)).toBe(true);
+      expect(board.changed).toBe(true);
+
+      board.clearChanges();
       expect([...board]).toEqual([
         [new Cell([0]), new Cell([1]), new Cell([2])],
         [new Cell([0]), new Cell([1]), new Cell([2])],
         [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
       ]);
       expect(board.remove(1, 0, 1)).toBe(false);
+      expect(board.changed).toBe(false);
     });
 
     test("does nothing if the cell doesn't have the value", () => {
       expect(board.remove(0, 0, 3)).toBe(false);
+      expect(board.changed).toBe(false);
     });
   });
 });
