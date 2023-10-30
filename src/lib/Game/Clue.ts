@@ -20,6 +20,8 @@ interface ExactClue extends BaseClue {
   col: number;
 }
 
+// TODO: remove change tracking logic
+
 function applyExact(clue: ExactClue, board: Board): boolean {
   const [[row, id]] = clue.tiles;
   const col = clue.col;

@@ -6,9 +6,6 @@ const BOARD_SIZE = 6;
 export type iBoard = Array<Array<Cell<number>>>;
 export type iSolvedBoard = Array<Array<number>>;
 
-// TODO: have the board keep track of changes and
-// remove from logic from apply
-
 export class Board implements Iterable<Iterable<Cell<number>>> {
   protected _cells: iBoard;
   protected finished: Set<`${number}:${number}`> = new Set();
