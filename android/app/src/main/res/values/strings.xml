@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">svelte-sleuth</string>
+    <string name="title_activity_main">svelte-sleuth</string>
+    <string name="package_name">com.paupulaire.sleuth</string>
+    <string name="custom_url_scheme">com.paupulaire.sleuth</string>
+</resources>
