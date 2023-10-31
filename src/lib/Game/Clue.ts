@@ -1,6 +1,9 @@
 import { Board, type iSolvedBoard } from "./Board";
 import { shuffle, swap } from "../utils";
 
+
+// TODO: remove change tracking logic
+// TODO: make Clue a class
 export const enum ClueType {
   Exact,
   Same,
@@ -19,8 +22,6 @@ interface ExactClue extends BaseClue {
   tiles: [[number, number]];
   col: number;
 }
-
-// TODO: remove change tracking logic
 
 function applyExact(clue: ExactClue, board: Board): boolean {
   const [[row, id]] = clue.tiles;
