@@ -6,13 +6,22 @@ const BOARD_SIZE = 6;
 export type iBoard = Array<Array<Cell<number>>>;
 export type iSolvedBoard = Array<Array<number>>;
 
-export class Board implements Iterable<Iterable<Cell<number>>> {
+export class Board
+  implements
+  Iterable<Iterable<Cell<number>>>,
+  ArrayLike<ArrayLike<Cell<number>>>
+{
+  readonly [n: number]: ArrayLike<Cell<number>>;
   protected _cells: iBoard;
   protected finished: Set<`${number}:${number}`> = new Set();
   protected changed_cells: Set<Cell<number>> = new Set();
 
   constructor(size = BOARD_SIZE) {
     this._cells = generate_board(size);
+    for (let i = 0; i < BOARD_SIZE; i++) {
+      // @ts-ignore
+      this[i] = this._cells[i];
+    }
   }
 
   get solved() {
