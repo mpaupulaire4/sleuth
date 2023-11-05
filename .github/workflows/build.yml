@@ -56,20 +56,22 @@ jobs:
       - name: Build app bundle
         run: cd android && ./gradlew assembleRelease --no-daemon
 
-      - name: Extract Android signing key from env
-        run: |
-          echo "${{ secrets.RELEASE_KEYSTORE }}" > android/release.jks.base64
-          base64 -d android/release.jks.base64 > android/release.decrypted.jks
-
-      - name: Sign dev build
-        run: jarsigner -keystore android/release.decrypted.jks -storepass "${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" -signedjar ./android/app/build/outputs/apk/release/app-release-signed.apk ./android/app/build/outputs/apk/release/app-release-unsigned.apk release
+      - name: Sign APK & AAB
+        uses: r0adki11/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: android/app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.RELEASE_KEYSTORE }}
+          keyStorePassword: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
 
       - name: Upload release bundle
         uses: actions/upload-artifact@v3
         with:
           name: app-release
-          path: android/app/build/outputs/apk/release/app-release-signed.apk
-          retention-days: 60
+          path: ${{steps.sign_app.outputs.signedReleaseFile}}
+          retention-days: 4
 
   # build-ios:
   #   needs: install-and-test
