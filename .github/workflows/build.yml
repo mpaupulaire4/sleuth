@@ -57,7 +57,7 @@ jobs:
         run: cd android && ./gradlew assembleRelease --no-daemon
 
       - name: Sign APK & AAB
-        uses: r0adkll/sign-android-release@v1
+        uses: ilharp/sign-android-release@v1
         id: sign_app
         with:
           releaseDirectory: android/app/build/outputs/apk/release/
@@ -70,7 +70,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: app-release
-          path: ${{steps.sign_app.outputs.signedReleaseFile}}
+          path: ${{steps.sign_app.outputs.signedFile}}
           retention-days: 4
 
   # build-ios:
