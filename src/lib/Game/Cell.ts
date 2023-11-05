@@ -14,6 +14,15 @@ export class Cell<T> extends Set<T> implements Readable<Set<T>> {
     return changed;
   };
 
+  get(): T | undefined {
+    const it = this.values().next();
+
+    if (!it.done) {
+      return it.value;
+    }
+    return undefined;
+  }
+
   is(id: T) {
     return this.has(id) && this.size === 1;
   }
