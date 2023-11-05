@@ -57,10 +57,10 @@ jobs:
         run: cd android && ./gradlew assembleRelease --no-daemon
 
       - name: Sign APK & AAB
-        uses: r0adki11/sign-android-release@v1
+        uses: r0adkll/sign-android-release@v1
         id: sign_app
         with:
-          releaseDirectory: android/app/build/outputs/apk/release
+          releaseDirectory: android/app/build/outputs/apk/release/
           signingKeyBase64: ${{ secrets.RELEASE_KEYSTORE }}
           keyStorePassword: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
           alias: ${{ secrets.KEY_ALIAS }}
