@@ -1,27 +1,59 @@
 <script lang="ts">
   import { Board } from "./lib/Game/Board";
-  import Cell from "./components/Cell.svelte";
+  import GridCell from "./components/GridCell.svelte";
+  import EditCell from "./components/EditCell.svelte";
 
   type RowDef = readonly [string[], string, string][];
 
-  const board = new Board();
   const keys: RowDef = [
-    [["S", "L", "E", "U", "T", "H"], "", ""],
-    [["a", "b", "c", "d", "e", "f"], "", ""],
-    [["a", "b", "c", "d", "e", "f"], "", ""],
-    [["a", "b", "c", "d", "e", "f"], "", ""],
-    [["a", "b", "c", "d", "e", "f"], "", ""],
-    [["a", "b", "c", "d", "e", "f"], "", ""],
+    [["S", "L", "E", "U", "T", "H"], "bg-accent fill-white", "fill-accent"],
+    [["S", "L", "E", "U", "T", "H"], "bg-accent fill-white", "fill-accent"],
+    [["S", "L", "E", "U", "T", "H"], "bg-accent fill-white", "fill-accent"],
+    [["S", "L", "E", "U", "T", "H"], "bg-accent fill-white", "fill-accent"],
+    [["S", "L", "E", "U", "T", "H"], "bg-accent fill-white", "fill-accent"],
+    [["S", "L", "E", "U", "T", "H"], "bg-accent fill-white", "fill-accent"],
   ];
+
+  // TODO: load from save state if it exists
+  // new board otherwise
+  let board = new Board();
+  let editCell: [number, number] | null = null;
 
   document.body.setAttribute("data-theme", "dark");
   board.remove(0, 0, 0, true);
+
+  function board_change() {}
+  function cancel_edit() {
+    editCell = null;
+  }
 </script>
 
 <main class="grid grid-cols-6 grid-gap-2">
   {#each board as row, i}
-    {#each row as cell}
-      <Cell symbols={keys[i][0]} {cell} />
+    {#each row as cell, j}
+      <GridCell
+        symbols={keys[i][0]}
+        class={keys[i][1]}
+        {cell}
+        on:click={() => {
+          editCell = [i, j];
+        }}
+      />
     {/each}
   {/each}
 </main>
+
+<section>
+  {#if editCell}
+    <EditCell
+      on:done={board_change}
+      on:cancel={cancel_edit}
+      {board}
+      row={editCell[0]}
+      col={editCell[1]}
+      symbols={keys[editCell[0]][0]}
+      onClass={keys[editCell[0]][1]}
+      offClass={keys[editCell[0]][2]}
+    />
+  {/if}
+</section>
