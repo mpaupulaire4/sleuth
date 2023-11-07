@@ -6,15 +6,18 @@ const BOARD_SIZE = 6;
 export type iBoard = Array<Array<Cell<number>>>;
 export type iSolvedBoard = Array<Array<number>>;
 
+export type Change = `${number}:${number}:${number}`;
+
 export class Board
   implements
-  Iterable<Iterable<Cell<number>>>,
-  ArrayLike<ArrayLike<Cell<number>>>
+    Iterable<Iterable<Cell<number>>>,
+    ArrayLike<ArrayLike<Cell<number>>>
 {
   readonly [n: number]: ArrayLike<Cell<number>>;
   protected _cells: iBoard;
   protected finished: Set<`${number}:${number}`> = new Set();
   protected changed_cells: Set<Cell<number>> = new Set();
+  protected changes: Set<Change> = new Set();
 
   constructor(size = BOARD_SIZE) {
     this._cells = generate_board(size);
@@ -36,6 +39,27 @@ export class Board
     return this.changed_cells.size > 0;
   }
 
+  get changeSet() {
+    return new Set(this.changes);
+  }
+
+  protected toggleChange(change: Change) {
+    if (!this.changes.delete(change)) {
+      this.changes.add(change);
+    }
+  }
+
+  applyChangeSet(set: Set<Change>) {
+    for (let change of set) {
+      const [row, col, id] = change.split(":").map((v) => parseInt(v));
+      const cell = this.get(row, col);
+      if (!cell) continue;
+      if (!cell.delete(id)) {
+        cell.add(id);
+      }
+    }
+  }
+
   print() {
     console.log(
       this._cells
@@ -50,36 +74,37 @@ export class Board
   }
 
   clearChanges() {
+    this.changes.clear();
     this.changed_cells.clear();
   }
 
-  notify() {
+  notify(clear = true) {
     for (let cell of this.changed_cells) {
       cell.notify();
     }
-    this.changed_cells.clear();
-  }
-
-  is(solved: iSolvedBoard) {
-    for (let r = 0; r < solved.length; r++) {
-      for (let c = 0; c < solved[r].length; c++) {
-        if (!this._cells[r][c]?.is(solved[r][c])) {
-          return false;
-        }
-      }
+    if (clear) {
+      this.clearChanges();
     }
-    return true;
   }
 
   get(row: number, col: number): Cell<number> | undefined {
     return this._cells[row][col];
   }
 
+  toggle(row: number, col: number, id: number): boolean {
+    const cell = this.get(row, col);
+    if (!cell) return false;
+    return cell.has(id) ? this.remove(row, col, id) : this.add(row, col, id);
+  }
+
   add(row: number, col: number, id: number): boolean {
     const cell = this.get(row, col);
     if (cell && !cell.has(id)) {
       cell.add(id);
-      this.finished.delete(`${row}:${id}`);
+      if (cell.size !== 1) {
+        this.finished.delete(`${row}:${id}`);
+      }
+      this.toggleChange(`${row}:${col}:${id}`);
       this.changed_cells.add(cell);
       return true;
     }
@@ -102,6 +127,7 @@ export class Board
       changed = cell.delete(id);
       if (changed) {
         let newCol = 0;
+        this.toggleChange(`${row}:${col}:${id}`);
         this.changed_cells.add(cell);
         const others = this._cells[row].filter((s, i) => {
           let b = s.has(id);
@@ -113,6 +139,7 @@ export class Board
         }
       }
     }
+
     if (changed && cell.size === 1) {
       const v = cell.values().next().value as number;
       this.finished.add(`${row}:${v}`);

@@ -7,21 +7,25 @@
   export let symbols: readonly string[] = [];
   let className: string = "fill-primary";
 
-  $: list = cell.size === 1 ? [symbols[cell.values().next().value!]] : symbols;
-
   export { className as class };
 </script>
 
 <button
   on:click
   class="grid gap-1 {clsx({
-    'grid-cols-1': cell.size === 1,
-    'grid-cols-3': cell.size !== 1,
+    'grid-cols-1': $cell.size === 1,
+    'grid-cols-3': $cell.size !== 1,
   })}"
 >
-  {#each list as val, i}
-    <Base square={cell.size !== 1} visible={cell.has(i)} class={className}>
-      {val}
+  {#if $cell.size === 1}
+    <Base square={false} visible class={className}>
+      {symbols[$cell.values().next().value]}
     </Base>
-  {/each}
+  {:else}
+    {#each symbols as val, i}
+      <Base square={$cell.size !== 1} visible={$cell.has(i)} class={className}>
+        {val}
+      </Base>
+    {/each}
+  {/if}
 </button>

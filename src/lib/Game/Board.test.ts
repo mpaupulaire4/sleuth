@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach } from "vitest";
-import { generate_solved_board, Board } from "./Board";
+import { generate_solved_board, Board, type iSolvedBoard } from "./Board";
 import { Cell } from "./Cell";
 
 class TestBoard extends Board {

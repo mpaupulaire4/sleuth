@@ -1,10 +1,21 @@
 import { describe, test, expect } from "vitest";
 import { solve } from "./Game";
-import { Board, generate_solved_board } from "./Game/Board";
+import { Board, generate_solved_board, type iSolvedBoard } from "./Game/Board";
 import { apply_clue, generate_clues, type Clue } from "./Game/Clue";
 import { shuffle } from "./utils";
 
 const BOARD_SIZE = 6;
+
+function equal(board: Board, solved: iSolvedBoard) {
+  for (let r = 0; r < solved.length; r++) {
+    for (let c = 0; c < solved[r].length; c++) {
+      if (!board.get(r, c)?.is(solved[r][c])) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
 
 function print(clues: Clue[]) {
   console.log(
@@ -31,8 +42,8 @@ describe("solve", () => {
       while (
         clues.reduce((r, c) => apply_clue(c, board) || r, false) ||
         safe--
-      ) { }
-      expect(board.is(solved)).toBe(true);
+      ) {}
+      expect(equal(board, solved)).toBe(true);
     }
   });
 });

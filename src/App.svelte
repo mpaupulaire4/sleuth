@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Board } from "./lib/Game/Board";
+  import { Board, type Change } from "./lib/Game/Board";
   import GridCell from "./components/GridCell.svelte";
   import EditCell from "./components/EditCell.svelte";
 
@@ -19,10 +19,20 @@
   let board = new Board();
   let editCell: [number, number] | null = null;
 
+  // TODO:
+  // - load from save
+  // - rest of undo redo logic
+  const stack: Array<Set<Change>> = [];
+
   document.body.setAttribute("data-theme", "dark");
   board.remove(0, 0, 0, true);
 
-  function board_change() {}
+  function board_change() {
+    stack.push(board.changeSet);
+    board.notify(true);
+    editCell = null;
+  }
+
   function cancel_edit() {
     editCell = null;
   }
@@ -42,6 +52,8 @@
     {/each}
   {/each}
 </main>
+
+<section>clues</section>
 
 <section>
   {#if editCell}
