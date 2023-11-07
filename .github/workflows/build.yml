@@ -4,8 +4,13 @@ on:
   push:
     branches:
       - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
-  install-and-test:
+  release-please:
     runs-on: ubuntu-latest
     name: Test
     steps:
@@ -16,9 +21,22 @@ jobs:
           cache: yarn
       - run: yarn install --frozen-lockfile --immutable
       - run: yarn test
+      - name: Release Please
+        id: release
+        uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: node
+          package-name: <your-package-name>
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+      major: ${{ steps.release.outputs.major }}
+      minor: ${{ steps.release.outputs.minor }}
+      patch: ${{ steps.release.outputs.patch }}
 
   build-android:
-    needs: install-and-test
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created }}
     runs-on: ubuntu-latest
     environment: production
     steps:
@@ -26,8 +44,8 @@ jobs:
 
       - uses: actions/setup-java@v3
         with:
-          distribution: 'zulu'
-          java-version: '17'
+          distribution: "zulu"
+          java-version: "17"
 
       - uses: actions/setup-node@v3
         with:
@@ -66,15 +84,14 @@ jobs:
           alias: ${{ secrets.KEY_ALIAS }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
 
-      - name: Upload release bundle
-        uses: actions/upload-artifact@v3
-        with:
-          name: app-release
-          path: ${{steps.sign_app.outputs.signedFile}}
-          retention-days: 4
+      - name: Upload Release Artifact
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{ needs.release-please.outputs.tag_name }} ${{steps.sign_app.outputs.signedFile}}
 
   # build-ios:
-  #   needs: install-and-test
+  #   needs: release-please
   #   runs-on: macos-latest
   #   steps:
   #     - uses: actions/checkout@v4
