@@ -71,6 +71,7 @@ jobs:
       - name: Capacitor Sync
         run: npx cap sync
 
+      # TODO: before building update the vesions of the apk
       - name: Build app bundle
         run: cd android && ./gradlew assembleRelease --no-daemon
 
