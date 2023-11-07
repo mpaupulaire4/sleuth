@@ -20,7 +20,7 @@
   let editCell: [number, number] | null = null;
 
   // TODO:
-  // - load from save
+  // - load from save state
   // - rest of undo redo logic
   const stack: Array<Set<Change>> = [];
 
