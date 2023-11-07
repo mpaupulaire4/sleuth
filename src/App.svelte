@@ -2,17 +2,7 @@
   import { Board, type Change } from "./lib/Game/Board";
   import GridCell from "./components/GridCell.svelte";
   import EditCell from "./components/EditCell.svelte";
-
-  type RowDef = readonly [string[], string, string][];
-
-  const keys: RowDef = [
-    [["S", "L", "E", "U", "T", "H"], "bg-accent fill-white", "fill-accent"],
-    [["S", "L", "E", "U", "T", "H"], "bg-accent fill-white", "fill-accent"],
-    [["S", "L", "E", "U", "T", "H"], "bg-accent fill-white", "fill-accent"],
-    [["S", "L", "E", "U", "T", "H"], "bg-accent fill-white", "fill-accent"],
-    [["S", "L", "E", "U", "T", "H"], "bg-accent fill-white", "fill-accent"],
-    [["S", "L", "E", "U", "T", "H"], "bg-accent fill-white", "fill-accent"],
-  ];
+  import { keys } from "./app";
 
   // TODO: load from save state if it exists
   // new board otherwise
