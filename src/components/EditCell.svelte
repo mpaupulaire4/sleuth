@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { Block, Toolbar, Link } from "konsta/svelte";
+
   import { createEventDispatcher } from "svelte";
   import type { Board } from "../lib/Game/Board";
   import Base from "./Cell/Base.svelte";
@@ -40,21 +42,22 @@
     }
     dispatch("done", null);
   }
-
-  function cancel() {
-    dispatch("cancel", null);
-  }
 </script>
 
-<div class="grid gap-1 grid-cols-3">
-  {#each symbols as val, i}
-    <button on:click={() => toggle(i)}>
-      <Base class={set.has(i) ? onClass : offClass}>
-        {val}
-      </Base>
-    </button>
-  {/each}
-</div>
-
-<button on:click={submit}>done</button>
-<button on:click={cancel}>cancel</button>
+<Toolbar top>
+  <p class="left">Column {col}</p>
+  <div class="right">
+    <Link toolbar onClick={submit} class="right">Done</Link>
+  </div>
+</Toolbar>
+<Block>
+  <div class="grid gap-1 grid-cols-3">
+    {#each symbols as val, i}
+      <button on:click={() => toggle(i)}>
+        <Base class={set.has(i) ? onClass : offClass}>
+          {val}
+        </Base>
+      </button>
+    {/each}
+  </div>
+</Block>

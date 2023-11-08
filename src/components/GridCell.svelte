@@ -5,14 +5,14 @@
 
   export let cell: Cell<number>;
   export let symbols: readonly string[] = [];
-  let className: string = "fill-primary";
+  let className: string = "";
 
   export { className as class };
 </script>
 
 <button
   on:click
-  class="grid gap-1 {clsx({
+  class="grid {clsx({
     'grid-cols-1': $cell.size === 1,
     'grid-cols-3': $cell.size !== 1,
   })}"
