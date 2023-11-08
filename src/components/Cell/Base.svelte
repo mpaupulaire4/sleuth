@@ -9,7 +9,7 @@
 </script>
 
 <svg
-  viewBox={square ? '0 0 15 15' : '0 0 30 20'}
+  viewBox={square ? "0 0 15 15" : "0 0 30 20"}
   class={clsx(
     className,
     "transition-opacity transition-300",

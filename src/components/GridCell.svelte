@@ -12,10 +12,10 @@
 
 <button
   on:click
-  class="grid {clsx({
-    'grid-cols-1': $cell.size === 1,
-    'grid-cols-3': $cell.size !== 1,
-  })}"
+  class={clsx("grid", {
+    "grid-cols-1": $cell.size === 1,
+    "grid-cols-3": $cell.size !== 1,
+  })}
 >
   {#if $cell.size === 1}
     <Base square={false} visible class={className}>

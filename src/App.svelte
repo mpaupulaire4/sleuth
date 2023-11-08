@@ -13,7 +13,6 @@
 
   // TODO:
   // - load from save state
-  // - rest of undo redo logic
   const { can_redo, can_undo, ...stack } = createUndoRedo<Set<Change>>();
 
   function board_change() {

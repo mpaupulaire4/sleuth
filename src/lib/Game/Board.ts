@@ -61,7 +61,6 @@ export class Board
 
   applyChangeSet(set: Set<Change>) {
     this.clearChanges();
-    console.log(set);
     for (let change of set) {
       const [row, col, id] = change.split(":").map((v) => parseInt(v));
       const cell = this.get(row, col);
