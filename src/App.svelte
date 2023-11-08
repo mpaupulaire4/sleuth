@@ -1,5 +1,14 @@
 <script lang="ts">
-  import { App, Page, Navbar, Block, Sheet, Toolbar } from "konsta/svelte";
+  import {
+    App,
+    Page,
+    Navbar,
+    Block,
+    Sheet,
+    Toolbar,
+    Link,
+    Button,
+  } from "konsta/svelte";
   import { Board, type Change } from "./lib/Game/Board";
   import { createUndoRedo } from "./lib/UndoRedo";
   import GridCell from "./components/GridCell.svelte";
@@ -39,7 +48,7 @@
 </script>
 
 <App theme="material" safeAreas class="dark">
-  <Page>
+  <Page class="h-full">
     <Navbar title="Sleuth" />
     <Block>
       <p class="grid grid-cols-6 gap-y-1 gap-x-0.5">
@@ -56,13 +65,15 @@
           {/each}
         {/each}
       </p>
-
-      <button on:click={undo} disabled={!$can_undo}> undo </button>
-      <button on:click={redo} disabled={!$can_redo}> redo </button>
-
       <section>clues</section>
     </Block>
-    <!-- TODO: toolbar for undo/ redo-->
+
+    <Toolbar class="fixed bottom-0">
+      <div class="grid grid-cols-2 gap-2 w-full">
+        <Button onClick={undo} disabled={!$can_undo}>Undo</Button>
+        <Button onClick={redo} disabled={!$can_redo}>Redo</Button>
+      </div>
+    </Toolbar>
     <Sheet
       backdrop
       opened={!!editCell}
