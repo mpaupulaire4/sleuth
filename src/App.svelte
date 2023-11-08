@@ -1,6 +1,7 @@
 <script lang="ts">
   import { App, Page, Navbar, Block, Sheet, Toolbar } from "konsta/svelte";
   import { Board, type Change } from "./lib/Game/Board";
+  import { createUndoRedo } from "./lib/UndoRedo";
   import GridCell from "./components/GridCell.svelte";
   import EditCell from "./components/EditCell.svelte";
   import { keys } from "./app";
@@ -13,16 +14,28 @@
   // TODO:
   // - load from save state
   // - rest of undo redo logic
-  const stack: Array<Set<Change>> = [];
+  const { can_redo, can_undo, ...stack } = createUndoRedo<Set<Change>>();
 
   function board_change() {
-    stack.push(board.changeSet);
+    stack.action(board.changeSet);
     board.notify(true);
     editCell = null;
   }
 
   function cancel_edit() {
     editCell = null;
+  }
+
+  function undo() {
+    const changes = stack.undo();
+    if (!changes) return;
+    board.applyChangeSet(changes);
+  }
+
+  function redo() {
+    const changes = stack.redo();
+    if (!changes) return;
+    board.applyChangeSet(changes);
   }
 
   board.remove(0, 0, 0, true);
@@ -46,6 +59,9 @@
           {/each}
         {/each}
       </p>
+
+      <button on:click={undo} disabled={!$can_undo}> undo </button>
+      <button on:click={redo} disabled={!$can_redo}> redo </button>
 
       <section>clues</section>
     </Block>

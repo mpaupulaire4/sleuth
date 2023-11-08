@@ -50,14 +50,19 @@ export class Board
   }
 
   applyChangeSet(set: Set<Change>) {
+    this.clearChanges();
     for (let change of set) {
       const [row, col, id] = change.split(":").map((v) => parseInt(v));
+      console.log(row, col, id)
       const cell = this.get(row, col);
       if (!cell) continue;
       if (!cell.delete(id)) {
         cell.add(id);
       }
+      console.log(row, col, id)
+      this.changed_cells.add(cell);
     }
+    this.notify(true);
   }
 
   print() {
