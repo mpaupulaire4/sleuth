@@ -15,7 +15,7 @@ export function generate(): Clue[] {
 export function solve(all_clues: Clue[], size = 6): Clue[] {
   const board = new Board(size);
   const clues: Clue[] = [];
-  while (!board.solved) {
+  while (!board.isFinished) {
     const clue = all_clues.pop();
     if (!clue) continue;
 

@@ -37,8 +37,6 @@
     if (!changes) return;
     board.applyChangeSet(changes);
   }
-
-  board.remove(0, 0, 0, true);
 </script>
 
 <App theme="material" safeAreas class="dark">

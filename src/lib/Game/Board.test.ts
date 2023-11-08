@@ -1,10 +1,23 @@
 import { describe, test, expect, beforeEach } from "vitest";
-import { generate_solved_board, Board, type iSolvedBoard } from "./Board";
+import { generate_solved_board, Board } from "./Board";
 import { Cell } from "./Cell";
 
-class TestBoard extends Board {
+export class TestBoard extends Board {
   get cells() {
     return this._cells;
+  }
+
+  print() {
+    console.log(
+      this._cells
+        .map(
+          (r) =>
+            `${r
+              .map((c) => `[${[...c].join(" ").padEnd(11, " ")}]`)
+              .join(" ")}`,
+        )
+        .join("\n"),
+    );
   }
 }
 
@@ -90,6 +103,56 @@ describe("Board", () => {
     test("does nothing if the cell doesn't have the value", () => {
       expect(board.remove(0, 0, 3)).toBe(false);
       expect(board.changed).toBe(false);
+    });
+  });
+
+  describe("changes sets", () => {
+    test("can get changes", () => {
+      board.remove(0, 0, 0, true);
+      expect(board.changed).toBe(true);
+      const changes = board.changeSet;
+      board.notify(true);
+      expect(changes).toEqual(new Set(["0:0:1", "0:0:2", "0:1:0", "0:2:0"]));
+    });
+    test("can apply changes", () => {
+      board.remove(0, 0, 0, true);
+      expect(board.changed).toBe(true);
+      const changes = board.changeSet;
+      board.notify(true);
+      expect(changes).toEqual(new Set(["0:0:1", "0:0:2", "0:1:0", "0:2:0"]));
+      board = new TestBoard(3);
+      board.applyChangeSet(changes);
+      board.notify();
+      expect([...board]).toEqual([
+        [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+      ]);
+    });
+    test("can reverse changes", () => {
+      board.remove(0, 0, 0, true);
+      expect(board.changed).toBe(true);
+      const changes = board.changeSet;
+      board.notify(true);
+      expect(changes).toEqual(new Set(["0:0:1", "0:0:2", "0:1:0", "0:2:0"]));
+      expect([...board]).toEqual([
+        [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+      ]);
+      board.applyChangeSet(changes);
+      expect([...board]).toEqual([
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+      ]);
+
+      board.applyChangeSet(changes);
+      expect([...board]).toEqual([
+        [new Cell([0]), new Cell([1, 2]), new Cell([1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+        [new Cell([0, 1, 2]), new Cell([0, 1, 2]), new Cell([0, 1, 2])],
+      ]);
     });
   });
 });

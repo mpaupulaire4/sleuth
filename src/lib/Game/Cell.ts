@@ -14,6 +14,12 @@ export class Cell<T> extends Set<T> implements Readable<Set<T>> {
     return changed;
   };
 
+  toggle(v: T) {
+    if (!this.delete(v)) {
+      this.add(v);
+    }
+  }
+
   get(): T | undefined {
     const it = this.values().next();
 

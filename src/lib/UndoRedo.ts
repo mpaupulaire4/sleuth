@@ -29,12 +29,14 @@ export function createUndoRedo<T>(
       if (!changes) return changes;
       redos.push(changes);
       update();
+      return changes;
     },
     redo: () => {
       const changes = redos.pop();
       if (!changes) return changes;
       undos.push(changes);
       update();
+      return changes;
     },
     can_redo: {
       subscribe: can_redo.subscribe,
