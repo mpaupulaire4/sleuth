@@ -10,7 +10,7 @@
   } from "konsta/svelte";
   import { Board, type Change } from "./lib/Game/Board";
   import { save, load } from "./lib/Storage";
-  import { createUndoRedo } from "./lib/UndoRedo";
+  import { Stack } from "./lib/UndoRedo";
   import GridCell from "./components/GridCell.svelte";
   import EditCell from "./components/EditCell.svelte";
   import { keys } from "./app";
@@ -23,9 +23,9 @@
   // TODO: Loading states
   let loading = false;
 
-  // TODO:
-  // - load from save state
-  const { can_redo, can_undo, ...stack } = createUndoRedo<Set<Change>>();
+  const stack = new Stack();
+  const can_redo = stack.can_redo;
+  const can_undo = stack.can_undo;
 
   function board_change() {
     stack.action(board.changeSet);
@@ -53,7 +53,7 @@
   async function persist() {
     await Promise.all([
       save(board),
-      // save(stack)
+      save(stack)
     ]);
   }
 
@@ -61,7 +61,7 @@
     loading = true;
     await Promise.all([
       load(board),
-      // load(stack)
+      load(stack)
     ]);
     loading = false;
   }
