@@ -1,5 +1,6 @@
 import { Cell } from "./Cell";
 import { shuffle } from "../utils";
+import type { Loadable, Saveable } from "../Storage";
 
 const BOARD_SIZE = 6;
 
@@ -10,7 +11,9 @@ export type Change = `${number}:${number}:${number}`;
 export class Board
   implements
     Iterable<Iterable<Cell<number>>>,
-    ArrayLike<ArrayLike<Cell<number>>>
+    ArrayLike<ArrayLike<Cell<number>>>,
+    Loadable,
+    Saveable
 {
   readonly [n: number]: readonly Cell<number>[];
   protected _cells: Array<Array<Cell<number>>>;
@@ -35,6 +38,36 @@ export class Board
       // @ts-ignore
       this[i] = this._cells[i];
     }
+  }
+
+  get key() {
+    return "sleuth-board-save-data";
+  }
+
+  toStorageString(): string {
+    return this._cells
+      .map((row) => row.map((cell) => [...cell].join(":")).join("|"))
+      .join("$");
+  }
+
+  fromStorageString(data: string | null): void {
+    if (!data) return;
+    this.finished_tiles.clear();
+    this.clearChanges();
+    data.split("$").forEach((data, row) => {
+      data.split("|").forEach((data, col) => {
+        const cell = this._cells[row][col];
+        cell.clear();
+        data.split(":").forEach((i) => {
+          cell.add(parseInt(i));
+        });
+        if (cell.size === 1) {
+          const id: number = cell.values().next().value!;
+          this.finished_tiles.add(`${row}:${id}`);
+        }
+        cell.notify();
+      });
+    });
   }
 
   get isFinished() {

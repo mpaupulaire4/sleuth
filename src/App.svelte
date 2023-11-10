@@ -6,19 +6,22 @@
     Block,
     Sheet,
     Toolbar,
-    Link,
     Button,
   } from "konsta/svelte";
   import { Board, type Change } from "./lib/Game/Board";
+  import { save, load } from "./lib/Storage";
   import { createUndoRedo } from "./lib/UndoRedo";
   import GridCell from "./components/GridCell.svelte";
   import EditCell from "./components/EditCell.svelte";
   import { keys } from "./app";
+
   // TODO: win/ lose states
-  // TODO: load from save state if it exists
-  // new board otherwise
-  let board = new Board();
+
+  const board = new Board();
   let editCell: [number, number] | null = null;
+
+  // TODO: Loading states
+  let loading = false;
 
   // TODO:
   // - load from save state
@@ -28,6 +31,7 @@
     stack.action(board.changeSet);
     board.notify(true);
     editCell = null;
+    persist();
   }
 
   function cancel_edit() {
@@ -45,13 +49,31 @@
     if (!changes) return;
     board.applyChangeSet(changes);
   }
+
+  async function persist() {
+    await Promise.all([
+      save(board),
+      // save(stack)
+    ]);
+  }
+
+  async function loadAll() {
+    loading = true;
+    await Promise.all([
+      load(board),
+      // load(stack)
+    ]);
+    loading = false;
+  }
+
+  loadAll();
 </script>
 
 <App theme="material" safeAreas class="dark">
-  <Page class="h-full">
+  <Page>
     <Navbar title="Sleuth" />
     <Block>
-      <p class="grid grid-cols-6 gap-y-1 gap-x-0.5">
+      <div class="grid grid-cols-6 gap-y-1 gap-x-0.5">
         {#each board as row, i}
           {#each row as cell, j}
             <GridCell
@@ -64,8 +86,9 @@
             />
           {/each}
         {/each}
-      </p>
-      <section>clues</section>
+      </div>
+      <!-- TODO: display and save/load clues -->
+      <div>clues</div>
     </Block>
 
     <Toolbar class="fixed bottom-0">
@@ -74,6 +97,7 @@
         <Button onClick={redo} disabled={!$can_redo}>Redo</Button>
       </div>
     </Toolbar>
+
     <Sheet
       backdrop
       opened={!!editCell}

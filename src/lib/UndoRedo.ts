@@ -6,6 +6,7 @@ interface UndoRedo<T> {
   undo(): T | undefined;
   redo(): T | undefined;
   action(action: T): void;
+  list: T[];
 }
 
 export function createUndoRedo<T>(
@@ -19,6 +20,9 @@ export function createUndoRedo<T>(
     can_redo.set(!!redos.length);
   };
   return {
+    get list() {
+      return undos;
+    },
     action: (a) => {
       undos.push(a);
       redos = [];

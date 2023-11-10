@@ -10,7 +10,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  release-please:
+  release:
     runs-on: ubuntu-latest
     name: Test
     steps:
@@ -26,7 +26,6 @@ jobs:
         uses: google-github-actions/release-please-action@v3
         with:
           release-type: node
-          package-name: <your-package-name>
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
@@ -35,8 +34,8 @@ jobs:
       patch: ${{ steps.release.outputs.patch }}
 
   build-android:
-    needs: release-please
-    if: ${{ needs.release-please.outputs.release_created }}
+    needs: release
+    if: ${{ needs.release.outputs.release_created }}
     runs-on: ubuntu-latest
     environment: production
     steps:
@@ -89,10 +88,10 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload ${{ needs.release-please.outputs.tag_name }} ${{steps.sign_app.outputs.signedFile}}
+        run: gh release upload ${{ needs.release.outputs.tag_name }} ${{steps.sign_app.outputs.signedFile}}
 
   # build-ios:
-  #   needs: release-please
+  #   needs: release
   #   runs-on: macos-latest
   #   steps:
   #     - uses: actions/checkout@v4
