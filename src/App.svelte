@@ -7,25 +7,28 @@
     Sheet,
     Toolbar,
     Button,
+    Link,
   } from "konsta/svelte";
-  import { Board, type Change } from "./lib/Game/Board";
+  import type { Clue } from "./lib/Game/Clue";
+  import { Board } from "./lib/Game/Board";
+  import { generate } from "./lib/Game";
   import { save, load } from "./lib/Storage";
   import { Stack } from "./lib/UndoRedo";
   import GridCell from "./components/GridCell.svelte";
   import EditCell from "./components/EditCell.svelte";
   import { keys } from "./app";
 
-  // TODO: win/ lose states
-
-  const board = new Board();
-  let editCell: [number, number] | null = null;
-
-  // TODO: Loading states
-  let loading = false;
-
   const stack = new Stack();
   const can_redo = stack.can_redo;
   const can_undo = stack.can_undo;
+
+  // TODO: win/ lose states
+  let board = new Board();
+  let editCell: [number, number] | null = null;
+  let clues: Clue[] = [];
+
+  // TODO: Loading states
+  let loading = false;
 
   function board_change() {
     stack.action(board.changeSet);
@@ -51,19 +54,20 @@
   }
 
   async function persist() {
-    await Promise.all([
-      save(board),
-      save(stack)
-    ]);
+    await Promise.all([save(board), save(stack)]);
   }
 
   async function loadAll() {
     loading = true;
-    await Promise.all([
-      load(board),
-      load(stack)
-    ]);
+    await Promise.all([load(board), load(stack)]);
     loading = false;
+  }
+
+  async function newGame() {
+    board = new Board();
+    stack.clear();
+    clues = generate();
+    persist();
   }
 
   loadAll();
@@ -71,7 +75,9 @@
 
 <App theme="material" safeAreas class="dark">
   <Page>
-    <Navbar title="Sleuth" />
+    <Navbar title="Sleuth">
+      <Link on:click={newGame} navbar slot="right">New Game</Link>
+    </Navbar>
     <Block>
       <div class="grid grid-cols-6 gap-y-1 gap-x-0.5">
         {#each board as row, i}

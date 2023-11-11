@@ -42,6 +42,12 @@ export class Stack implements Loadable, Saveable {
     return changes;
   }
 
+  clear() {
+    this.undos = [];
+    this.redos = [];
+    this.update();
+  }
+
   action(a: Set<Change>) {
     this.undos.push(a);
     this.redos = [];
