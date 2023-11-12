@@ -34,7 +34,7 @@ export class BeforeClue extends Clue {
     }
   }
 
-  validate(board: Board): boolean {
+  _validate(board: Board): boolean {
     const [[row1, id1], [row2, id2]] = this.tiles;
     let found_first = false
     for (let i = 0; i < board.length; i++) {

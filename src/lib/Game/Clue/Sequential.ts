@@ -63,7 +63,7 @@ export class SequentialClue extends Clue {
     }
   }
 
-  validate(board: Board): boolean {
+  _validate(board: Board): boolean {
     const [[row1, id1], [rowMid, idMid], [row2, id2]] = this.tiles;
     for (let i = 0; i < board.length; i++) {
       if (board.get(rowMid, i)?.is(idMid)) {

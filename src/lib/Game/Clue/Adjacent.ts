@@ -36,7 +36,7 @@ export class AdjacentClue extends Clue {
     }
   }
 
-  validate(board: Board): boolean {
+  _validate(board: Board): boolean {
     const [[row1, id1], [row2, id2]] = this.tiles;
     for (let i = 1; i < board.length - 1; i++) {
       if (board.get(row1, i)?.is(id1)) {

@@ -17,14 +17,17 @@
 
   export let clue: Clue;
   export let rowDef: RowDef;
+  export let finished = false;
 
   $: tile1 = clue.tiles[0];
   $: tile1Def = rowDef[tile1[0]];
   $: tile2 = clue.tiles[1] || [];
   $: tile2Def = rowDef[tile2[0]] || [];
+
+  console.log(!$clue)
 </script>
 
-<div class={clsx("grid grid-cols-3 clue border-2")}>
+<div class={clsx("grid grid-cols-3 clue border-2", finished && !$clue && "border-red-500")}>
   <Base square visible class={tile1Def[1]}>
     {tile1Def[0][tile1[1]]}
   </Base>

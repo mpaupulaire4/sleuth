@@ -17,7 +17,7 @@ export class ExactClue extends Clue {
     board.remove(row, col, id, true);
   }
 
-  validate(board: Board): boolean {
+  _validate(board: Board): boolean {
     const [[row, id]] = this.tiles;
     return !!board.get(row, this.col)?.is(id);
   }

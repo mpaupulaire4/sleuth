@@ -9,6 +9,8 @@
     Toolbar,
     Button,
     Link,
+    Dialog,
+    DialogButton,
   } from "konsta/svelte";
   import {
     ClueType,
@@ -18,7 +20,7 @@
     cluesToString,
   } from "./lib/Game/Clue";
   import { Board } from "./lib/Game/Board";
-  import { generate_clues } from "./lib/Game";
+  import { generate_clues, solve } from "./lib/Game";
   import { save, load, type Loadable, type Saveable } from "./lib/Storage";
   import { Stack } from "./lib/UndoRedo";
   import GridCell from "./components/GridCell.svelte";
@@ -34,6 +36,8 @@
   let board = new Board();
   let editCell: [number, number] | null = null;
   let clues: Clue[] = [];
+  let finished = board.isFinished;
+  let solved = false;
 
   const ClueSaver: Loadable & Saveable = {
     key: SAVE_CLUE_KEY,
@@ -51,6 +55,8 @@
     board.notify(true);
     editCell = null;
     persist();
+    finished = board.isFinished;
+    solved = clues.every((c) => c.validate(board));
   }
 
   function cancel_edit() {
@@ -76,6 +82,8 @@
   async function loadAll() {
     loading = true;
     await Promise.all([load(board), load(stack), load(ClueSaver)]);
+    finished = board.isFinished;
+    solved = clues.every((c) => c.validate(board));
     loading = false;
   }
 
@@ -121,7 +129,7 @@
       <!-- TODO: display clues -->
       <div class="grid grid-cols-6 gap-2">
         {#each clues as clue}
-          <ClueComp {clue} rowDef={keys} />
+          <ClueComp {clue} rowDef={keys} {finished} />
         {/each}
       </div>
     </Block>
@@ -153,4 +161,11 @@
       {/if}
     </Sheet>
   </Page>
+  <Dialog opened={solved} onBackdropClick={() => (solved = false)}>
+    <svelte:fragment slot="title">Great Job!!!</svelte:fragment>
+    You solved the puzzle!
+    <svelte:fragment slot="buttons">
+      <DialogButton onClick={newGame}>Start a New Game</DialogButton>
+    </svelte:fragment>
+  </Dialog>
 </App>
