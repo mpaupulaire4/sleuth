@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Capacitor } from "@capacitor/core";
   import {
     App,
     Page,
@@ -31,6 +32,8 @@
   const stack = new Stack();
   const can_redo = stack.can_redo;
   const can_undo = stack.can_undo;
+
+  const platform = Capacitor.getPlatform() === "ios" ? "ios" : "material";
 
   let board = new Board();
   let editCell: [number, number] | null = null;
@@ -102,7 +105,7 @@
   loadAll();
 </script>
 
-<App theme="material" safeAreas class="dark">
+<App theme={platform} safeAreas class="dark">
   <Page>
     <Navbar title="Sleuth">
       <Link onClick={newGame} navbar slot="right">New Game</Link>
