@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/mpaupulaire4/sleuth/compare/v1.0.1...v1.0.2) (2023-11-12)
+
+
+### Bug Fixes
+
+* base vite ([94c2cfc](https://github.com/mpaupulaire4/sleuth/commit/94c2cfcd434efb3e072d69a14718a451a58621d2))
+
 ## [1.0.1](https://github.com/mpaupulaire4/sleuth/compare/v1.0.0...v1.0.1) (2023-11-12)
 
 
