@@ -1,4 +1,4 @@
-type RowDef = readonly [string[], string, string][];
+export type RowDef = readonly [string[], string, string][];
 
 export const keys: RowDef = [
   [["S", "L", "E", "U", "T", "H"], "bg-red-300", "fill-red-300"],

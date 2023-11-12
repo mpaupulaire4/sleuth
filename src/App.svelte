@@ -4,18 +4,20 @@
     Page,
     Navbar,
     Block,
+    BlockTitle,
     Sheet,
     Toolbar,
     Button,
     Link,
   } from "konsta/svelte";
-  import type { Clue } from "./lib/Game/Clue";
+  import { ClueType, type Clue } from "./lib/Game/Clue";
   import { Board } from "./lib/Game/Board";
-  import { generate } from "./lib/Game";
+  import { generate_clues } from "./lib/Game";
   import { save, load } from "./lib/Storage";
   import { Stack } from "./lib/UndoRedo";
   import GridCell from "./components/GridCell.svelte";
   import EditCell from "./components/EditCell.svelte";
+  import ClueComp from "./components/Clue.svelte";
   import { keys } from "./app";
 
   const stack = new Stack();
@@ -66,7 +68,13 @@
   async function newGame() {
     board = new Board();
     stack.clear();
-    clues = generate();
+    clues = generate_clues().filter((c) => {
+      if (c.type === ClueType.Exact) {
+        c.apply(board);
+        return false
+      }
+      return true
+    });
     persist();
   }
 
@@ -93,10 +101,13 @@
           {/each}
         {/each}
       </div>
+    </Block>
+    <BlockTitle>Clues</BlockTitle>
+    <Block>
       <!-- TODO: display and save/load clues -->
-      <div>
+      <div class="grid grid-cols-6 gap-2">
         {#each clues as clue}
-          <div>{clue.type}</div>
+          <ClueComp {clue} rowDef={keys} />
         {/each}
       </div>
     </Block>

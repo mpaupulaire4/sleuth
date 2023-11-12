@@ -67,4 +67,10 @@ export function generate_all_clues(board: iSolvedBoard): Clue[] {
   return clues;
 }
 
+export const SAVE_CLUE_KEY = "SAVE_CLUE_KEY";
+
+export function cluesToString(clues: Clue[]) {
+
+}
+
 export { Clue, ClueType } from "./Clue/Base";
