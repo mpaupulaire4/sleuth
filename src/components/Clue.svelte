@@ -23,8 +23,6 @@
   $: tile1Def = rowDef[tile1[0]];
   $: tile2 = clue.tiles[1] || [];
   $: tile2Def = rowDef[tile2[0]] || [];
-
-  console.log(!$clue)
 </script>
 
 <div class={clsx("grid grid-cols-3 clue border-2", finished && !$clue && "border-red-500")}>
