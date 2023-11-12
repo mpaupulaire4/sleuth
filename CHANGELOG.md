@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/mpaupulaire4/sleuth/compare/v1.0.0...v1.0.1) (2023-11-12)
+
+
+### Bug Fixes
+
+* build ([4200622](https://github.com/mpaupulaire4/sleuth/commit/42006224971051c866ec1055eeeab81a3a5920f6))
+* deploy ([da200d1](https://github.com/mpaupulaire4/sleuth/commit/da200d1e084f98a475ef5273421de12d5eefe11f))
+
 ## 1.0.0 (2023-11-12)
 
 
