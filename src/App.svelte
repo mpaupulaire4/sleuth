@@ -10,10 +10,16 @@
     Button,
     Link,
   } from "konsta/svelte";
-  import { ClueType, type Clue } from "./lib/Game/Clue";
+  import {
+    ClueType,
+    type Clue,
+    SAVE_CLUE_KEY,
+    cluesFromString,
+    cluesToString,
+  } from "./lib/Game/Clue";
   import { Board } from "./lib/Game/Board";
   import { generate_clues } from "./lib/Game";
-  import { save, load } from "./lib/Storage";
+  import { save, load, type Loadable, type Saveable } from "./lib/Storage";
   import { Stack } from "./lib/UndoRedo";
   import GridCell from "./components/GridCell.svelte";
   import EditCell from "./components/EditCell.svelte";
@@ -28,6 +34,14 @@
   let board = new Board();
   let editCell: [number, number] | null = null;
   let clues: Clue[] = [];
+
+  const ClueSaver: Loadable & Saveable = {
+    key: SAVE_CLUE_KEY,
+    fromStorageString: (data) => {
+      clues = cluesFromString(data);
+    },
+    toStorageString: () => cluesToString(clues),
+  };
 
   // TODO: Loading states
   let loading = false;
@@ -56,12 +70,12 @@
   }
 
   async function persist() {
-    await Promise.all([save(board), save(stack)]);
+    await Promise.all([save(board), save(stack), save(ClueSaver)]);
   }
 
   async function loadAll() {
     loading = true;
-    await Promise.all([load(board), load(stack)]);
+    await Promise.all([load(board), load(stack), load(ClueSaver)]);
     loading = false;
   }
 
@@ -71,9 +85,9 @@
     clues = generate_clues().filter((c) => {
       if (c.type === ClueType.Exact) {
         c.apply(board);
-        return false
+        return false;
       }
-      return true
+      return true;
     });
     persist();
   }

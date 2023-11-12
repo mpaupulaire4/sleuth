@@ -21,4 +21,17 @@ export class ExactClue extends Clue {
     const [[row, id]] = this.tiles;
     return !!board.get(row, this.col)?.is(id);
   }
+
+  toStorageString(): string {
+    return `${this.type}|${this.col}|${this.tiles
+      .map((t) => t.join(":"))
+      .join("|")}`;
+  }
+
+  fromStorageString(data: string | null): void {
+    if (!data) throw Error("empty data when restoring clue");
+    const [_, col, ...tilesS] = data.split("|").filter((d) => d);
+    this.col = parseInt(col);
+    this.tilesFromStorageStrings(tilesS);
+  }
 }

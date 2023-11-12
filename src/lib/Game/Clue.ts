@@ -1,6 +1,6 @@
 import { type iSolvedBoard } from "./Board";
 import { swap } from "../utils";
-import { Clue } from "./Clue/Base";
+import { Clue, ClueType } from "./Clue/Base";
 import { ExactClue } from "./Clue/Exact";
 import { SameClue } from "./Clue/Same";
 import { AdjacentClue } from "./Clue/Adjacent";
@@ -67,10 +67,62 @@ export function generate_all_clues(board: iSolvedBoard): Clue[] {
   return clues;
 }
 
-export const SAVE_CLUE_KEY = "SAVE_CLUE_KEY";
-
-export function cluesToString(clues: Clue[]) {
-
+export function cluesToString(clues: Clue[]): string {
+  return clues.map((c) => c.toStorageString()).join("$");
 }
 
-export { Clue, ClueType } from "./Clue/Base";
+export function cluesFromString(data: string | null): Clue[] {
+  if (!data) return [];
+  return data
+    .split("$")
+    .filter((d) => d)
+    .map((data) => {
+      const [typeS] = data.split("|");
+      const type = parseInt(typeS);
+      switch (type) {
+        case ClueType.Adjacent: {
+          const clue = new AdjacentClue([
+            [0, 0],
+            [0, 0],
+          ]);
+          clue.fromStorageString(data);
+          return clue;
+        }
+        case ClueType.Same: {
+          const clue = new SameClue([
+            [0, 0],
+            [0, 0],
+          ]);
+          clue.fromStorageString(data);
+          return clue;
+        }
+        case ClueType.Before: {
+          const clue = new BeforeClue([
+            [0, 0],
+            [0, 0],
+          ]);
+          clue.fromStorageString(data);
+          return clue;
+        }
+        case ClueType.Sequential: {
+          const clue = new SequentialClue([
+            [0, 0],
+            [0, 0],
+            [0, 0],
+          ]);
+          clue.fromStorageString(data);
+          return clue;
+        }
+        case ClueType.Exact: {
+          const clue = new ExactClue([[0, 0]], 0);
+          clue.fromStorageString(data);
+          return clue;
+        }
+        default: {
+          throw Error("unrecognized clue type");
+        }
+      }
+    });
+}
+
+export { Clue, ClueType, SAVE_CLUE_KEY } from "./Clue/Base";
