@@ -76,7 +76,7 @@
 <App theme="material" safeAreas class="dark">
   <Page>
     <Navbar title="Sleuth">
-      <Link on:click={newGame} navbar slot="right">New Game</Link>
+      <Link onClick={newGame} navbar slot="right">New Game</Link>
     </Navbar>
     <Block>
       <div class="grid grid-cols-6 gap-y-1 gap-x-0.5">
@@ -94,7 +94,11 @@
         {/each}
       </div>
       <!-- TODO: display and save/load clues -->
-      <div>clues</div>
+      <div>
+        {#each clues as clue}
+          <div>{clue.type}</div>
+        {/each}
+      </div>
     </Block>
 
     <Toolbar class="fixed bottom-0">

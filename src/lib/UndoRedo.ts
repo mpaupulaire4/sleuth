@@ -74,7 +74,6 @@ export class Stack implements Loadable, Saveable {
     const [undo_data, redo_data] = data.split("$");
     this.undos = undo_data ? undo_data.split(",").map(changeSetFromString) : [];
     this.redos = redo_data ? redo_data.split(",").map(changeSetFromString) : [];
-    console.log(this.undos, this.redos);
     this.update();
   }
 }

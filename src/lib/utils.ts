@@ -13,7 +13,7 @@ export function shuffle<A extends unknown[]>(a: A): A {
   return a;
 }
 
-export function swap<A extends [unknown, unknown, ...unknown[]]>(a: A): A {
+export function swap<A extends unknown[]>(a: A): A {
   if (Math.random() < 0.5) {
     const x = a[a.length - 1];
     a[a.length - 1] = a[0];

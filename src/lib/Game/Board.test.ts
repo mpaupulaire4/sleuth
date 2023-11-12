@@ -1,25 +1,8 @@
 import { describe, test, expect, beforeEach } from "vitest";
 import { generate_solved_board, Board } from "./Board";
 import { Cell } from "./Cell";
+import { TestBoard } from "../test-utils";
 
-export class TestBoard extends Board {
-  get cells() {
-    return this._cells;
-  }
-
-  print() {
-    console.log(
-      this._cells
-        .map(
-          (r) =>
-            `${r
-              .map((c) => `[${[...c].join(" ").padEnd(11, " ")}]`)
-              .join(" ")}`,
-        )
-        .join("\n"),
-    );
-  }
-}
 
 describe("generate_solved_board", () => {
   test("generates a solved board of the specified size", () => {

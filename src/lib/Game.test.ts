@@ -1,7 +1,7 @@
 import { describe, test, expect } from "vitest";
 import { solve } from "./Game";
 import { Board, generate_solved_board, type iSolvedBoard } from "./Game/Board";
-import { apply_clue, generate_clues, type Clue } from "./Game/Clue";
+import { generate_clues, type Clue } from "./Game/Clue";
 import { shuffle } from "./utils";
 
 const BOARD_SIZE = 6;
@@ -39,11 +39,15 @@ describe("solve", () => {
       const board = new Board(BOARD_SIZE);
       const clues = solve([...all_clues], BOARD_SIZE);
       let safe = 100;
-      while (
-        clues.reduce((r, c) => apply_clue(c, board) || r, false) ||
-        safe--
-      ) {}
+      do {
+        board.clearChanges();
+        for (let clue of clues) {
+          clue.apply(board);
+        }
+        safe--;
+      } while (board.changed);
       expect(equal(board, solved)).toBe(true);
+      expect(clues.every((c) => c.validate(board))).toBe(true);
     }
   });
 });
