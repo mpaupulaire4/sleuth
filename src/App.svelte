@@ -118,7 +118,7 @@
     </Block>
     <BlockTitle>Clues</BlockTitle>
     <Block>
-      <!-- TODO: display and save/load clues -->
+      <!-- TODO: display clues -->
       <div class="grid grid-cols-6 gap-2">
         {#each clues as clue}
           <ClueComp {clue} rowDef={keys} />
