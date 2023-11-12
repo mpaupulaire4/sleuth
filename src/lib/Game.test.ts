@@ -1,7 +1,7 @@
 import { describe, test, expect } from "vitest";
 import { solve } from "./Game";
 import { Board, generate_solved_board, type iSolvedBoard } from "./Game/Board";
-import { generate_clues, type Clue } from "./Game/Clue";
+import { generate_all_clues, type Clue } from "./Game/Clue";
 import { shuffle } from "./utils";
 
 const BOARD_SIZE = 6;
@@ -30,7 +30,7 @@ function print(clues: Clue[]) {
 
 describe("solve", () => {
   const solved = generate_solved_board(BOARD_SIZE);
-  const all_clues = shuffle(generate_clues(solved));
+  const all_clues = shuffle(generate_all_clues(solved));
 
   test("should produce clues that allow solving a new board", () => {
     // print(clues);

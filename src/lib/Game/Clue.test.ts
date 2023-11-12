@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { ClueType, generate_clues } from "./Clue";
+import { ClueType, generate_all_clues } from "./Clue";
 import { type iSolvedBoard } from "./Board";
 
 describe("generate_clues", () => {
@@ -12,7 +12,7 @@ describe("generate_clues", () => {
       [0, 1, 2],
       [0, 1, 2],
     ];
-    const clues = generate_clues(board);
+    const clues = generate_all_clues(board);
 
     const exact = clues.filter(({ type }) => type === ClueType.Exact);
     expect(exact.length).toBe(9);

@@ -1,14 +1,14 @@
 import { shuffle } from "./utils";
 import { Board, generate_solved_board } from "./Game/Board";
-import { generate_clues, type Clue } from "./Game/Clue";
+import { generate_all_clues, type Clue } from "./Game/Clue";
 
 const BOARD_SIZE = 6;
 
 // TODO: use a set of IDs to chech that cles have been completed
 // and for when the board is solved: Set<`${row}:${id}`>
-export function generate(): Clue[] {
+export function generate_clues(): Clue[] {
   const solved_board = generate_solved_board(BOARD_SIZE);
-  const all_clues = generate_clues(solved_board);
+  const all_clues = generate_all_clues(solved_board);
   return solve(shuffle(all_clues));
 }
 

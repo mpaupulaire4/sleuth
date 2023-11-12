@@ -1,6 +1,6 @@
 import { type iSolvedBoard } from "./Board";
-import { shuffle, swap } from "../utils";
-import { ClueType, Clue } from "./Clue/Base";
+import { swap } from "../utils";
+import { Clue } from "./Clue/Base";
 import { ExactClue } from "./Clue/Exact";
 import { SameClue } from "./Clue/Same";
 import { AdjacentClue } from "./Clue/Adjacent";
@@ -8,7 +8,7 @@ import { SequentialClue } from "./Clue/Sequential";
 import { BeforeClue } from "./Clue/Before";
 
 // Generate a list of all possible clues for the given solved board.
-export function generate_clues(board: iSolvedBoard): Clue[] {
+export function generate_all_clues(board: iSolvedBoard): Clue[] {
   const clues: Clue[] = [];
   for (let r = 0; r < board.length; r++) {
     for (let c = 0; c < board[r].length; c++) {
@@ -65,15 +65,6 @@ export function generate_clues(board: iSolvedBoard): Clue[] {
     }
   }
   return clues;
-}
-
-export function randomise_clues(clues: Clue[]): Clue[] {
-  for (let clue of clues) {
-    if (clue.type === ClueType.Adjacent || clue.type === ClueType.Sequential) {
-      swap(clue.tiles);
-    }
-  }
-  return shuffle(clues);
 }
 
 export { Clue, ClueType } from "./Clue/Base";
