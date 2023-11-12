@@ -20,7 +20,7 @@
     cluesToString,
   } from "./lib/Game/Clue";
   import { Board } from "./lib/Game/Board";
-  import { generate_clues, solve } from "./lib/Game";
+  import { generate_clues } from "./lib/Game";
   import { save, load, type Loadable, type Saveable } from "./lib/Storage";
   import { Stack } from "./lib/UndoRedo";
   import GridCell from "./components/GridCell.svelte";
@@ -32,7 +32,6 @@
   const can_redo = stack.can_redo;
   const can_undo = stack.can_undo;
 
-  // TODO: win/ lose states
   let board = new Board();
   let editCell: [number, number] | null = null;
   let clues: Clue[] = [];
