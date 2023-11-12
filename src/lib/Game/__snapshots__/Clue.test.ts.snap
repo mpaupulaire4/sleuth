@@ -3,6 +3,8 @@
 exports[`generate_clues > generates all clues > adj clues 1`] = `
 [
   AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -14,8 +16,11 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
       ],
     ],
     "type": 2,
+    "valid": false,
   },
   AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -27,8 +32,11 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
       ],
     ],
     "type": 2,
+    "valid": false,
   },
   AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -40,8 +48,11 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
       ],
     ],
     "type": 2,
+    "valid": false,
   },
   AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -53,8 +64,11 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
       ],
     ],
     "type": 2,
+    "valid": false,
   },
   AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -66,8 +80,11 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
       ],
     ],
     "type": 2,
+    "valid": false,
   },
   AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -79,8 +96,11 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
       ],
     ],
     "type": 2,
+    "valid": false,
   },
   AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -92,8 +112,11 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
       ],
     ],
     "type": 2,
+    "valid": false,
   },
   AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -105,8 +128,11 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
       ],
     ],
     "type": 2,
+    "valid": false,
   },
   AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -118,8 +144,11 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
       ],
     ],
     "type": 2,
+    "valid": false,
   },
   AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -131,8 +160,11 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
       ],
     ],
     "type": 2,
+    "valid": false,
   },
   AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -144,8 +176,11 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
       ],
     ],
     "type": 2,
+    "valid": false,
   },
   AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -157,34 +192,43 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
       ],
     ],
     "type": 2,
+    "valid": false,
   },
   AdjacentClue {
-    "tiles": [
-      [
-        2,
-        0,
-      ],
-      [
-        0,
-        1,
-      ],
-    ],
-    "type": 2,
-  },
-  AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
         0,
       ],
       [
+        0,
+        1,
+      ],
+    ],
+    "type": 2,
+    "valid": false,
+  },
+  AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
+    "tiles": [
+      [
+        2,
+        0,
+      ],
+      [
         1,
         1,
       ],
     ],
     "type": 2,
+    "valid": false,
   },
   AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -196,8 +240,11 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
       ],
     ],
     "type": 2,
+    "valid": false,
   },
   AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -209,8 +256,11 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
       ],
     ],
     "type": 2,
+    "valid": false,
   },
   AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -222,8 +272,11 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
       ],
     ],
     "type": 2,
+    "valid": false,
   },
   AdjacentClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -235,6 +288,7 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
       ],
     ],
     "type": 2,
+    "valid": false,
   },
 ]
 `;
@@ -242,6 +296,8 @@ exports[`generate_clues > generates all clues > adj clues 1`] = `
 exports[`generate_clues > generates all clues > before clues 1`] = `
 [
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -253,8 +309,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -266,8 +325,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -279,8 +341,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -292,8 +357,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -305,8 +373,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -318,8 +389,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -331,8 +405,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -344,8 +421,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -357,8 +437,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -370,8 +453,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -383,8 +469,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -396,8 +485,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -409,8 +501,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -422,8 +517,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -435,8 +533,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -448,8 +549,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -461,8 +565,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -474,21 +581,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
-    "tiles": [
-      [
-        2,
-        0,
-      ],
-      [
-        0,
-        1,
-      ],
-    ],
-    "type": 3,
-  },
-  BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -496,12 +593,31 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
       [
         0,
+        1,
+      ],
+    ],
+    "type": 3,
+    "valid": false,
+  },
+  BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
+    "tiles": [
+      [
+        2,
+        0,
+      ],
+      [
+        0,
         2,
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -513,8 +629,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -526,8 +645,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -539,8 +661,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -552,8 +677,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -565,8 +693,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -578,8 +709,11 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
   BeforeClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -591,6 +725,7 @@ exports[`generate_clues > generates all clues > before clues 1`] = `
       ],
     ],
     "type": 3,
+    "valid": false,
   },
 ]
 `;
@@ -599,6 +734,8 @@ exports[`generate_clues > generates all clues > exact clues 1`] = `
 [
   ExactClue {
     "col": 0,
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -606,9 +743,12 @@ exports[`generate_clues > generates all clues > exact clues 1`] = `
       ],
     ],
     "type": 0,
+    "valid": false,
   },
   ExactClue {
     "col": 1,
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -616,9 +756,12 @@ exports[`generate_clues > generates all clues > exact clues 1`] = `
       ],
     ],
     "type": 0,
+    "valid": false,
   },
   ExactClue {
     "col": 2,
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -626,9 +769,12 @@ exports[`generate_clues > generates all clues > exact clues 1`] = `
       ],
     ],
     "type": 0,
+    "valid": false,
   },
   ExactClue {
     "col": 0,
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -636,9 +782,12 @@ exports[`generate_clues > generates all clues > exact clues 1`] = `
       ],
     ],
     "type": 0,
+    "valid": false,
   },
   ExactClue {
     "col": 1,
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -646,9 +795,12 @@ exports[`generate_clues > generates all clues > exact clues 1`] = `
       ],
     ],
     "type": 0,
+    "valid": false,
   },
   ExactClue {
     "col": 2,
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -656,9 +808,12 @@ exports[`generate_clues > generates all clues > exact clues 1`] = `
       ],
     ],
     "type": 0,
+    "valid": false,
   },
   ExactClue {
     "col": 0,
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -666,9 +821,12 @@ exports[`generate_clues > generates all clues > exact clues 1`] = `
       ],
     ],
     "type": 0,
+    "valid": false,
   },
   ExactClue {
     "col": 1,
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -676,9 +834,12 @@ exports[`generate_clues > generates all clues > exact clues 1`] = `
       ],
     ],
     "type": 0,
+    "valid": false,
   },
   ExactClue {
     "col": 2,
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -686,6 +847,7 @@ exports[`generate_clues > generates all clues > exact clues 1`] = `
       ],
     ],
     "type": 0,
+    "valid": false,
   },
 ]
 `;
@@ -693,6 +855,8 @@ exports[`generate_clues > generates all clues > exact clues 1`] = `
 exports[`generate_clues > generates all clues > same clues 1`] = `
 [
   SameClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -704,8 +868,11 @@ exports[`generate_clues > generates all clues > same clues 1`] = `
       ],
     ],
     "type": 1,
+    "valid": false,
   },
   SameClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -717,8 +884,11 @@ exports[`generate_clues > generates all clues > same clues 1`] = `
       ],
     ],
     "type": 1,
+    "valid": false,
   },
   SameClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -730,8 +900,11 @@ exports[`generate_clues > generates all clues > same clues 1`] = `
       ],
     ],
     "type": 1,
+    "valid": false,
   },
   SameClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -743,8 +916,11 @@ exports[`generate_clues > generates all clues > same clues 1`] = `
       ],
     ],
     "type": 1,
+    "valid": false,
   },
   SameClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -756,8 +932,11 @@ exports[`generate_clues > generates all clues > same clues 1`] = `
       ],
     ],
     "type": 1,
+    "valid": false,
   },
   SameClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -769,8 +948,11 @@ exports[`generate_clues > generates all clues > same clues 1`] = `
       ],
     ],
     "type": 1,
+    "valid": false,
   },
   SameClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -782,8 +964,11 @@ exports[`generate_clues > generates all clues > same clues 1`] = `
       ],
     ],
     "type": 1,
+    "valid": false,
   },
   SameClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -795,8 +980,11 @@ exports[`generate_clues > generates all clues > same clues 1`] = `
       ],
     ],
     "type": 1,
+    "valid": false,
   },
   SameClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -808,6 +996,7 @@ exports[`generate_clues > generates all clues > same clues 1`] = `
       ],
     ],
     "type": 1,
+    "valid": false,
   },
 ]
 `;
@@ -815,6 +1004,8 @@ exports[`generate_clues > generates all clues > same clues 1`] = `
 exports[`generate_clues > generates all clues > sequential clues 1`] = `
 [
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -830,8 +1021,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -847,8 +1041,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -864,8 +1061,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -881,8 +1081,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -898,8 +1101,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -915,8 +1121,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -932,8 +1141,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -949,8 +1161,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -966,8 +1181,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -983,8 +1201,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -1000,8 +1221,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -1017,8 +1241,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -1034,8 +1261,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -1051,8 +1281,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -1068,8 +1301,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -1085,8 +1321,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -1102,8 +1341,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -1119,8 +1361,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -1136,8 +1381,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -1153,8 +1401,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         0,
@@ -1170,8 +1421,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -1187,8 +1441,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -1204,8 +1461,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         1,
@@ -1221,8 +1481,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -1238,8 +1501,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -1255,8 +1521,11 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
   SequentialClue {
+    "subscribe": [Function],
+    "subscribers": [],
     "tiles": [
       [
         2,
@@ -1272,6 +1541,7 @@ exports[`generate_clues > generates all clues > sequential clues 1`] = `
       ],
     ],
     "type": 4,
+    "valid": false,
   },
 ]
 `;
