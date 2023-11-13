@@ -25,20 +25,26 @@
   $: tile2Def = rowDef[tile2[0]] || [];
 </script>
 
-<div class={clsx("grid grid-cols-3 clue border-2", finished && !$clue && "border-red-500")}>
-  <Base square visible class={tile1Def[1]}>
+<div
+  class={clsx(
+    "grid grid-cols-3 clue border-2 text-base",
+    finished && !$clue && "border-red-500"
+  )}
+>
+  <Base square visible class={clsx("text-black", tile1Def[1])}>
     {tile1Def[0][tile1[1]]}
   </Base>
   {#if clue.type !== ClueType.Sequential}
-    <Base square visible class="fill-white">{TypeSymbols[clue.type]}</Base>
+    <!-- <Base square visible class="fill-white">{TypeSymbols[clue.type]}</Base> -->
+    <Base square visible class="text-white">{TypeSymbols[clue.type]}</Base>
   {/if}
-  <Base square visible class={tile2Def[1]}>
+  <Base square visible class={clsx("text-black", tile2Def[1])}>
     {tile2Def[0][tile2[1]]}
   </Base>
   {#if clue.type === ClueType.Sequential}
     {@const tile = clue.tiles[2]}
     {@const def = rowDef[tile[0]]}
-    <Base square visible class={def[1]}>
+    <Base square visible class={clsx("text-black", def[1])}>
       {def[0][tile[1]]}
     </Base>
   {/if}

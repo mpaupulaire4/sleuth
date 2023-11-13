@@ -8,18 +8,31 @@
   export { className as class };
 </script>
 
-<svg
-  viewBox={square ? "0 0 15 15" : "0 0 30 20"}
+<!-- <svg -->
+<!--   viewBox={square ? "0 0 15 15" : "0 0 30 20"} -->
+<!--   class={clsx( -->
+<!--     className, -->
+<!--     "transition-opacity transition-300 text-xs", -->
+<!--     visible ? "opacity-100" : "opacity-0", -->
+<!--     { -->
+<!--       "aspect-square": square, -->
+<!--     } -->
+<!--   )} -->
+<!-- > -->
+<!--   <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle"> -->
+<!--     <slot /> -->
+<!--   </text> -->
+<!-- </svg> -->
+
+<div
   class={clsx(
     className,
-    "transition-opacity transition-300",
+    "transition-opacity transition-300 flex items-center justify-center",
     visible ? "opacity-100" : "opacity-0",
     {
       "aspect-square": square,
     }
   )}
 >
-  <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle">
-    <slot />
-  </text>
-</svg>
+  <slot />
+</div>

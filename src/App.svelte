@@ -53,6 +53,7 @@
   let loading = false;
 
   function board_change() {
+    if (!board.changed) return;
     stack.action(board.changeSet);
     board.notify(true);
     editCell = null;
@@ -99,6 +100,8 @@
       }
       return true;
     });
+    finished = false;
+    solved = false;
     persist();
   }
 

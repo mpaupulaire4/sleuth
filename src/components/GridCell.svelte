@@ -18,12 +18,12 @@
   })}
 >
   {#if $cell.size === 1}
-    <Base square={false} visible class={className}>
+    <Base square={false} visible class={clsx("text-5xl text-black" ,className )}>
       {symbols[$cell.values().next().value]}
     </Base>
   {:else}
     {#each symbols as val, i}
-      <Base square={$cell.size !== 1} visible={$cell.has(i)} class={className}>
+      <Base square={$cell.size !== 1} visible={$cell.has(i)} class={clsx("text-base text-black", className )}>
         {val}
       </Base>
     {/each}

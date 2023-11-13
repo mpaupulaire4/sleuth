@@ -4,6 +4,7 @@
   import { createEventDispatcher } from "svelte";
   import type { Board } from "../lib/Game/Board";
   import Base from "./Cell/Base.svelte";
+  import clsx from "clsx";
 
   const dispatch = createEventDispatcher<{
     done: null;
@@ -54,7 +55,7 @@
   <div class="grid gap-1 grid-cols-3">
     {#each symbols as val, i}
       <button on:click={() => toggle(i)}>
-        <Base class={set.has(i) ? onClass : offClass}>
+        <Base class={clsx("text-5xl text-black", set.has(i) ? onClass : offClass)}>
           {val}
         </Base>
       </button>
