@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.3](https://github.com/mpaupulaire4/sleuth/compare/v1.0.2...v1.0.3) (2023-11-13)
+
+
+### Bug Fixes
+
+* platform switch ([16815ce](https://github.com/mpaupulaire4/sleuth/commit/16815cec70d736cff1a224608a53fc8a6bfe4238))
+* temp sizing issue ([10101c6](https://github.com/mpaupulaire4/sleuth/commit/10101c60549c0deb246f5a2ff9989a8535d2c710))
+
 ## [1.0.2](https://github.com/mpaupulaire4/sleuth/compare/v1.0.1...v1.0.2) (2023-11-12)
 
 
