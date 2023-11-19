@@ -35,7 +35,6 @@
     toStorageString: () => cluesToString(clues),
   };
 
-  // TODO: Loading states
   let loading = false;
 
   function board_change() {
