@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/mpaupulaire4/sleuth/compare/v1.0.3...v1.0.4) (2023-11-19)
+
+
+### Bug Fixes
+
+* remove konsta ([42ff027](https://github.com/mpaupulaire4/sleuth/commit/42ff0273e917c350a55187959817fbcf5164d974))
+
 ## [1.0.3](https://github.com/mpaupulaire4/sleuth/compare/v1.0.2...v1.0.3) (2023-11-13)
 
 
