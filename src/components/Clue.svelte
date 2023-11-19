@@ -27,24 +27,24 @@
 
 <div
   class={clsx(
-    "grid grid-cols-3 clue border-2 text-base",
+    "grid grid-cols-3 clue border-2 text-base lg:text-5xl text-neutral",
     finished && !$clue && "border-red-500"
   )}
 >
-  <Base square visible class={clsx("text-black", tile1Def[1])}>
+  <Base square visible class={clsx(tile1Def[1])}>
     {tile1Def[0][tile1[1]]}
   </Base>
   {#if clue.type !== ClueType.Sequential}
     <!-- <Base square visible class="fill-white">{TypeSymbols[clue.type]}</Base> -->
-    <Base square visible class="text-white">{TypeSymbols[clue.type]}</Base>
+    <Base square visible class="text-base-content">{TypeSymbols[clue.type]}</Base>
   {/if}
-  <Base square visible class={clsx("text-black", tile2Def[1])}>
+  <Base square visible class={clsx(tile2Def[1])}>
     {tile2Def[0][tile2[1]]}
   </Base>
   {#if clue.type === ClueType.Sequential}
     {@const tile = clue.tiles[2]}
     {@const def = rowDef[tile[0]]}
-    <Base square visible class={clsx("text-black", def[1])}>
+    <Base square visible class={clsx(def[1])}>
       {def[0][tile[1]]}
     </Base>
   {/if}

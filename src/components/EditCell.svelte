@@ -1,23 +1,23 @@
 <script lang="ts">
-  import { Block, Toolbar, Link } from "konsta/svelte";
-
   import { createEventDispatcher } from "svelte";
   import type { Board } from "../lib/Game/Board";
   import Base from "./Cell/Base.svelte";
   import clsx from "clsx";
+  import { keys } from "../app";
 
   const dispatch = createEventDispatcher<{
     done: null;
-    cancel: null;
   }>();
 
   export let board: Board;
-  export let row: number;
-  export let col: number;
-  export let symbols: readonly string[];
-  export let onClass: string;
-  export let offClass: string;
 
+  let dialog: HTMLDialogElement;
+  let row: number = 0;
+  let col: number = 0;
+
+  $: symbols = keys[row][0];
+  $: onClass = keys[row][1];
+  $: offClass = keys[row][2];
   $: cell = board.get(row, col)!;
   $: set = new Set([...cell]);
 
@@ -42,23 +42,44 @@
       }
     }
     dispatch("done", null);
+    dialog.close();
+  }
+
+  export function open(r: number, c: number) {
+    row = r;
+    col = c;
+    dialog.showModal();
   }
 </script>
 
-<Toolbar top>
-  <p class="left">Column {col}</p>
-  <div class="right">
-    <Link toolbar onClick={submit} class="right">Done</Link>
+<dialog id="edit-cells-modal" class="modal modal-bottom" bind:this={dialog}>
+  <!-- toolbar -->
+  <div class="modal-box">
+    <div class="navbar text-3xl">
+      <p class="navbar-start">Column {col}</p>
+      <div class="navbar-end">
+        <button on:click={submit} class="btn btn-ghost btn-lg">Done</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="grid gap-1 grid-cols-3">
+        {#each symbols as val, i}
+          <button on:click={() => toggle(i)}>
+            <Base
+              class={clsx(
+                "text-5xl text-black",
+                set.has(i) ? onClass : offClass
+              )}
+            >
+              {val}
+            </Base>
+          </button>
+        {/each}
+      </div>
+    </div>
   </div>
-</Toolbar>
-<Block>
-  <div class="grid gap-1 grid-cols-3">
-    {#each symbols as val, i}
-      <button on:click={() => toggle(i)}>
-        <Base class={clsx("text-5xl text-black", set.has(i) ? onClass : offClass)}>
-          {val}
-        </Base>
-      </button>
-    {/each}
-  </div>
-</Block>
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>

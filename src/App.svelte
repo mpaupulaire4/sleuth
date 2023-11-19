@@ -1,18 +1,4 @@
 <script lang="ts">
-  import { Capacitor } from "@capacitor/core";
-  import {
-    App,
-    Page,
-    Navbar,
-    Block,
-    BlockTitle,
-    Sheet,
-    Toolbar,
-    Button,
-    Link,
-    Dialog,
-    DialogButton,
-  } from "konsta/svelte";
   import {
     ClueType,
     type Clue,
@@ -25,7 +11,7 @@
   import { save, load, type Loadable, type Saveable } from "./lib/Storage";
   import { Stack } from "./lib/UndoRedo";
   import GridCell from "./components/GridCell.svelte";
-  import EditCell from "./components/EditCell.svelte";
+  import EditCells from "./components/EditCell.svelte";
   import ClueComp from "./components/Clue.svelte";
   import { keys } from "./app";
 
@@ -33,13 +19,13 @@
   const can_redo = stack.can_redo;
   const can_undo = stack.can_undo;
 
-  const platform = Capacitor.getPlatform() === "ios" ? "ios" : "material";
-
   let board = new Board();
-  let editCell: [number, number] | null = null;
   let clues: Clue[] = [];
   let finished = board.isFinished;
   let solved = false;
+
+  let editDialog: EditCells;
+  let winDialog: HTMLDialogElement;
 
   const ClueSaver: Loadable & Saveable = {
     key: SAVE_CLUE_KEY,
@@ -56,14 +42,9 @@
     if (!board.changed) return;
     stack.action(board.changeSet);
     board.notify(true);
-    editCell = null;
     persist();
     finished = board.isFinished;
     solved = clues.every((c) => c.validate(board));
-  }
-
-  function cancel_edit() {
-    editCell = null;
   }
 
   function undo() {
@@ -91,6 +72,7 @@
   }
 
   async function newGame() {
+    loading = true;
     board = new Board();
     stack.clear();
     clues = generate_clues().filter((c) => {
@@ -102,75 +84,78 @@
     });
     finished = false;
     solved = false;
-    persist();
+    await persist();
+    loading = false;
   }
 
   loadAll();
+
+  document.body.setAttribute("data-theme", "dark");
+
+  $: solved && winDialog?.showModal();
 </script>
 
-<App theme={platform} safeAreas class="dark">
-  <Page>
-    <Navbar title="Sleuth">
-      <Link onClick={newGame} navbar slot="right">New Game</Link>
-    </Navbar>
-    <Block>
-      <div class="grid grid-cols-6 gap-y-1 gap-x-0.5">
-        {#each board as row, i}
-          {#each row as cell, j}
-            <GridCell
-              symbols={keys[i][0]}
-              class={keys[i][1]}
-              {cell}
-              on:click={() => {
-                editCell = [i, j];
-              }}
-            />
-          {/each}
-        {/each}
-      </div>
-    </Block>
-    <BlockTitle>Clues</BlockTitle>
-    <Block>
-      <!-- TODO: display clues -->
-      <div class="grid grid-cols-6 gap-2">
-        {#each clues as clue}
-          <ClueComp {clue} rowDef={keys} {finished} />
-        {/each}
-      </div>
-    </Block>
-
-    <Toolbar class="fixed bottom-0">
-      <div class="grid grid-cols-2 gap-2 w-full">
-        <Button onClick={undo} disabled={!$can_undo}>Undo</Button>
-        <Button onClick={redo} disabled={!$can_redo}>Redo</Button>
-      </div>
-    </Toolbar>
-
-    <Sheet
-      backdrop
-      opened={!!editCell}
-      onBackdropClick={cancel_edit}
-      class="w-full"
-    >
-      {#if editCell}
-        <EditCell
-          on:done={board_change}
-          on:cancel={cancel_edit}
-          {board}
-          row={editCell[0]}
-          col={editCell[1]}
-          symbols={keys[editCell[0]][0]}
-          onClass={keys[editCell[0]][1]}
-          offClass={keys[editCell[0]][2]}
-        />
+<div class="navbar">
+  <div class="navbar-start" />
+  <div class="navbar-center">
+    <h1 class="btn btn-ghost text-xl">Sleuth</h1>
+  </div>
+  <div class="navbar-end">
+    <button class="btn btn-ghost" on:click={newGame} disabled={loading}>
+      {#if loading}
+        <span class="loading loading-spinner" />
       {/if}
-    </Sheet>
-  </Page>
-  <Dialog opened={solved} onBackdropClick={() => (solved = false)}>
-    <svelte:fragment slot="title">Great Job!!!</svelte:fragment>
-    You solved the puzzle!
-    <svelte:fragment slot="buttons">
-      <DialogButton onClick={newGame}>Start a New Game</DialogButton>
-    </svelte:fragment>
-  </Dialog>
-</App>
+      New Game
+    </button>
+  </div>
+</div>
+
+<div class="grid grid-cols-6 gap-y-1 gap-x-0.5">
+  {#each board as row, i}
+    {#each row as cell, j}
+      <GridCell
+        symbols={keys[i][0]}
+        class={keys[i][1]}
+        {cell}
+        on:click={() => {
+          editDialog.open(i, j);
+        }}
+      />
+    {/each}
+  {/each}
+</div>
+
+<!-- <BlockTitle>Clues</BlockTitle> -->
+<div class="grid grid-cols-6 gap-2 mt-4">
+  {#each clues as clue}
+    <ClueComp {clue} rowDef={keys} {finished} />
+  {/each}
+</div>
+
+<div
+  class="fixed bottom-0 grid grid-cols-2 gap-2 w-full mx-auto left-0 right-0 container"
+>
+  <button on:click={undo} disabled={!$can_undo} class="btn btn-outline">
+    Undo
+  </button>
+  <button on:click={redo} disabled={!$can_redo} class="btn btn-outline">
+    Redo
+  </button>
+</div>
+
+<EditCells bind:this={editDialog} on:done={board_change} {board} />
+
+<dialog class="modal" bind:this={winDialog}>
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Great Job!</h3>
+    <p class="py-4">You solved the puzzle!</p>
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn" on:click={newGame}>New Game</button>
+      </form>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>
