@@ -14,12 +14,31 @@
   let dialog: HTMLDialogElement;
   let row: number = 0;
   let col: number = 0;
+  let mousedownTime: number;
 
   $: symbols = keys[row][0];
   $: onClass = keys[row][1];
   $: offClass = keys[row][2];
   $: cell = board.get(row, col)!;
   $: set = new Set([...cell]);
+
+  function onMouseDown() {
+    mousedownTime = new Date().getTime()
+  }
+
+  function onMouseUp(item: number) {
+    const timeDifference = new Date().getTime() - mousedownTime;
+    console.log(timeDifference)
+    if (timeDifference > 500) { // considered a button press
+      select(item)
+    } else { // considered a button click
+      toggle(item)
+    }
+  }
+
+  function select(item: number) {
+    set = new Set([item]);
+  }
 
   function toggle(item: number) {
     if (set.has(item)) {
@@ -65,7 +84,7 @@
     <div>
       <div class="grid gap-1 grid-cols-3">
         {#each symbols as val, i}
-          <button on:click={() => toggle(i)}>
+      <button on:mousedown={onMouseDown} on:mouseup={() => onMouseUp(i)}>
             <Base
               class={clsx(
                 "text-5xl text-black",
