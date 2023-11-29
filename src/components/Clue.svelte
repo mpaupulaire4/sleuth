@@ -18,6 +18,7 @@
   export let clue: Clue;
   export let rowDef: RowDef;
   export let finished = false;
+  export let markedCompleted = false;
 
   $: tile1 = clue.tiles[0];
   $: tile1Def = rowDef[tile1[0]];
@@ -25,11 +26,12 @@
   $: tile2Def = rowDef[tile2[0]] || [];
 </script>
 
-<div
+<button
   class={clsx(
     "grid grid-cols-3 clue border-2 text-base lg:text-5xl text-neutral",
-    finished && !$clue && "border-red-500"
+    finished && !$clue && "border-red-500", markedCompleted && "opacity-40"
   )}
+  on:click={() => markedCompleted=!markedCompleted}
 >
   <Base square visible class={clsx(tile1Def[1])}>
     {tile1Def[0][tile1[1]]}
@@ -48,4 +50,4 @@
       {def[0][tile[1]]}
     </Base>
   {/if}
-</div>
+  </button>
