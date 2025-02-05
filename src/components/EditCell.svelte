@@ -3,7 +3,7 @@
   import type { Board } from "../lib/Game/Board";
   import Base from "./Cell/Base.svelte";
   import clsx from "clsx";
-  import { keys } from "../app";
+  import { keys } from "../keys";
 
   const dispatch = createEventDispatcher<{
     done: null;

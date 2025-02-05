@@ -1,0 +1,17 @@
+https://docs.couchdb.org/en/latest/intro/security.html
+https://docs.couchdb.org/en/stable/config/auth.html#server-administrators
+https://docs.couchdb.org/en/stable/http-routingtable.html#cap-/{db}
+https://github.com/calvinmetcalf/crypto-pouch
+https://github.com/iyobo/pouchorm/blob/master/src/PouchCollection.ts
+https://github.com/jo/docuri
+https://github.com/nolanlawson/blob-util
+https://github.com/pouchdb-community/relational-pouch
+https://github.com/pouchdb-community/transform-pouch
+https://github.com/pouchdb-community/worker-pouch
+https://github.com/pouchdb/pouchdb
+https://pouchdb.com/2014/06/17/12-pro-tips-for-better-code-with-pouchdb.html
+https://pouchdb.com/api.html#view_cleanup
+https://pouchdb.com/external.html
+https://pouchdb.com/guides/queries.html
+https://www.wayner.org/node/46
+https://www.wayner.org/node/52
